@@ -7,7 +7,6 @@ export default StyleSheet.create({
     paddingVertical: 44,
     paddingHorizontal: 24,
     backgroundColor: "white",
-    alignItems: "center",
   },
   title: {
     fontFamily: "medium",

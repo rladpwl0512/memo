@@ -26,7 +26,9 @@ function ResearchApprovementScreen({ navigation }) {
         </View>
       </ScrollView>
 
-      <GreenButton text="동의" width="40%" onClick={handleButtonClick} />
+      <View style={styles.buttonContainer}>
+        <GreenButton text="동의" width="40%" onClick={handleButtonClick} />
+      </View>
     </View>
   );
 }
@@ -37,11 +39,13 @@ const styles = StyleSheet.create({
   },
   headerSection: {
     marginTop: 60,
-    alignItems: "flex-start",
   },
 
   contentSection: {
     flex: 1,
+  },
+  buttonContainer: {
+    alignItems: "center",
   },
   button: {
     alignItems: "center",
