@@ -26,9 +26,10 @@ export default function App() {
     });
   };
 
+  // first, second, third, SoundCheckDescription, ExperimentDescriptionScreen
   return isReadyFont ? (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="SoundCheck">
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="ExperimentDescription">
         <Stack.Screen name="ResearchApprovement" component={ResearchApprovementScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="ExperimentDescription" component={ExperimentDescriptionScreen} />
