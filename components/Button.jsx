@@ -2,9 +2,9 @@ import global from "../styles/globalStyle";
 import colors from "../styles/theme";
 import { Pressable, StyleSheet, Text } from "react-native";
 
-function Button({ text, width }) {
+function Button({ text, width, onClick }) {
   return (
-    <Pressable style={[styles.button, { width }]}>
+    <Pressable style={[styles.button, { width }]} onPress={onClick}>
       <Text style={global.button}>{text}</Text>
     </Pressable>
   );
