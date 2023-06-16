@@ -2,7 +2,7 @@ import global from "../styles/globalStyle";
 import colors from "../styles/theme";
 import { Pressable, StyleSheet, Text } from "react-native";
 
-function Button({ text, width, onClick }) {
+function GreenButton({ text, width, onClick }) {
   return (
     <Pressable style={[styles.button, { width }]} onPress={onClick}>
       <Text style={global.button}>{text}</Text>
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Button;
+export default GreenButton;

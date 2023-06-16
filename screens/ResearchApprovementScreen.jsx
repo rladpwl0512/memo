@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import global from "../styles/globalStyle";
-import Button from "../components/Button";
+import GreenButton from "../components/GreenButton";
 
 function ResearchApprovementScreen({ navigation }) {
   const handleButtonClick = () => {
@@ -26,7 +26,7 @@ function ResearchApprovementScreen({ navigation }) {
         </View>
       </ScrollView>
 
-      <Button text="동의" width="40%" onClick={handleButtonClick} />
+      <GreenButton text="동의" width="40%" onClick={handleButtonClick} />
     </View>
   );
 }
