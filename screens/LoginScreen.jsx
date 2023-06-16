@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 import global from "../styles/globalStyle";
 import GreenButton from "../components/GreenButton";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../styles/theme";
 
-function LoginScreen() {
+function LoginScreen({ navigation }) {
   const [inputText, setInputText] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
 
   const handleInputChange = (text) => {
     if (/^\d{0,11}$/.test(text)) {
@@ -20,7 +19,9 @@ function LoginScreen() {
   };
 
   const handleButtonClick = () => {
-    navigation.navigate("");
+    // db에 있는지 확인하는 과정
+    // 제대로 입력했는지 확인하는 과정
+    navigation.navigate("ExperimentDescription");
   };
 
   return (
