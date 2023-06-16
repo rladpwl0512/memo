@@ -2,11 +2,17 @@ import { StyleSheet, Text, View, ScrollView } from "react-native";
 import global from "../styles/globalStyle";
 import Button from "../components/Button";
 
-function ResearchApprovementScreen() {
+function ResearchApprovementScreen({ navigation }) {
+  const handleButtonClick = () => {
+    navigation.navigate("Login");
+  };
+
   return (
     <View style={[styles.container, global.container]}>
       <View style={styles.headerSection}>
-        <Text style={global.title}>연구 동의서를 꼼꼼히 읽으신 후, 연구 참여에 동의하시는 경우 아래의 버튼을 눌러 실험을 진행해주세요</Text>
+        <Text style={global.title}>
+          연구 동의서를 꼼꼼히 읽으신 후,{"\n"}연구 참여에 동의하시는 경우{"\n"}아래의 버튼을 눌러 실험을 진행해주세요
+        </Text>
       </View>
 
       <ScrollView>
@@ -20,7 +26,7 @@ function ResearchApprovementScreen() {
         </View>
       </ScrollView>
 
-      <Button text="확인" width="40%" />
+      <Button text="동의" width="40%" onClick={handleButtonClick} />
     </View>
   );
 }
@@ -31,7 +37,9 @@ const styles = StyleSheet.create({
   },
   headerSection: {
     marginTop: 60,
+    alignItems: "flex-start",
   },
+
   contentSection: {
     flex: 1,
   },

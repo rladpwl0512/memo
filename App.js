@@ -5,6 +5,7 @@ import AppLoading from "expo-app-loading"; //TODO: deprecated. expo-splash-scree
 import * as Font from "expo-font";
 
 import ResearchApprovementScreen from "./screens/ResearchApprovementScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="ResearchApprovement">
         <Stack.Screen name="ResearchApprovement" component={ResearchApprovementScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   ) : (
