@@ -26,7 +26,6 @@ export default function App() {
     });
   };
 
-  // first, second, third, SoundCheckDescription, ExperimentDescriptionScreen
   return isReadyFont ? (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="ExperimentDescription">
