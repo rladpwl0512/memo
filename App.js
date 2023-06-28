@@ -28,7 +28,7 @@ export default function App() {
 
   return isReadyFont ? (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="ExperimentDescription">
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="ResearchApprovement">
         <Stack.Screen name="ResearchApprovement" component={ResearchApprovementScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="ExperimentDescription" component={ExperimentDescriptionScreen} />
