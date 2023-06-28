@@ -8,7 +8,8 @@ import CustomModal from "../components/CustomModal";
 
 function LoginScreen({ navigation }) {
   const [inputText, setInputText] = useState("");
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isResisterModalVisible, setIsResisterModalVisible] = useState(false);
+  const [isFormModalVisible, setIsFormModalVisible] = useState(false);
 
   const handleInputChange = (text) => {
     if (/^\d{0,11}$/.test(text)) {
@@ -17,13 +18,28 @@ function LoginScreen({ navigation }) {
   };
 
   const handleButtonClick = () => {
-    // db에 있는지 확인하는 과정
-    // 제대로 입력했는지 확인하는 과정
+    // 폰 번호를 형식대로 입력했는지 확인
+    const phoneNumberRex = /^(01[016789]{1})[0-9]{8}$/;
+    if (!inputText.match(phoneNumberRex)) {
+      setIsFormModalVisible(true);
+      return;
+    }
+
+    // db에 있는지 확인
+
     navigation.navigate("ExperimentDescription");
   };
 
-  const closeModal = () => {
-    setIsModalVisible(false);
+  const closeResisterModal = () => {
+    setIsResisterModalVisible(false);
+  };
+
+  const closeFormModal = () => {
+    setIsFormModalVisible(false);
+  };
+
+  const handleInputFocus = () => {
+    console.log("hey");
   };
 
   return (
@@ -36,19 +52,29 @@ function LoginScreen({ navigation }) {
 
         <View style={styles.inputContainer}>
           <Ionicons style={styles.icon} name="md-call" size={24} color={colors.GRAY_700} />
-          <TextInput style={styles.input} value={inputText} onChangeText={handleInputChange} keyboardType="numeric" maxLength={11} placeholder="전화번호를 입력해주세요 (예: 01012345678)" placeholderTextColor={colors.GRAY_700} />
+          <TextInput value={inputText} onChangeText={handleInputChange} keyboardType="numeric" maxLength={11} placeholder="전화번호를 입력해주세요 (예: 01012345678)" placeholderTextColor={colors.GRAY_700} autoFocus />
         </View>
 
         <GreenButton text="확인" width="100%" onClick={handleButtonClick} />
       </View>
 
-      <CustomModal visible={isModalVisible} onClose={closeModal}>
+      <CustomModal visible={isResisterModalVisible} onClose={closeResisterModal}>
         <View style={styles.modalContainer}>
           <Text style={[styles.modalTitle, global.title]}>정보가 없습니다</Text>
           <Text style={[styles.modalContent, global.content]}>
             등록되지 않은 번호입니다.{"\n"}다시 시도해보세요.{"\n"}(문의: inyoung0727@swu.ac.kr){" "}
           </Text>
-          <Pressable style={styles.modalButton} onPress={closeModal}>
+          <Pressable style={styles.modalButton} onPress={closeResisterModal}>
+            <Text style={[global.title, styles.modalButtonText]}>확인</Text>
+          </Pressable>
+        </View>
+      </CustomModal>
+
+      <CustomModal visible={isFormModalVisible} onClose={closeFormModal}>
+        <View style={styles.modalContainer}>
+          <Text style={[styles.modalTitle, global.title]}>잘못 입력하셨습니다</Text>
+          <Text style={[styles.modalContent, global.content]}>번호를 올바른 형식으로 입력해주세요. (예시: 01012345678)</Text>
+          <Pressable style={styles.modalButton} onPress={closeFormModal}>
             <Text style={[global.title, styles.modalButtonText]}>확인</Text>
           </Pressable>
         </View>

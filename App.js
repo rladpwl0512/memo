@@ -12,6 +12,7 @@ import SecondExperimentDescriptionScreen from "./screens/SecondExperimentDescrip
 import ThirdExperimentDescriptionScreen from "./screens/ThirdExperimentDescriptionScreen";
 import SoundCheckDescriptionScreen from "./screens/SoundCheckDescriptionScreen";
 import SoundCheckScreen from "./screens/SoundCheckScreen";
+import FinishScreen from "./screens/FinishScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +29,7 @@ export default function App() {
 
   return isReadyFont ? (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="ResearchApprovement">
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Finish">
         <Stack.Screen name="ResearchApprovement" component={ResearchApprovementScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="ExperimentDescription" component={ExperimentDescriptionScreen} />
@@ -37,6 +38,7 @@ export default function App() {
         <Stack.Screen name="ThirdExperimentDescription" component={ThirdExperimentDescriptionScreen} />
         <Stack.Screen name="SoundCheckDescription" component={SoundCheckDescriptionScreen} />
         <Stack.Screen name="SoundCheck" component={SoundCheckScreen} />
+        <Stack.Screen name="Finish" component={FinishScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   ) : (
