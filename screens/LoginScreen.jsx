@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
 import global from "../styles/globalStyle";
 import GreenButton from "../components/GreenButton";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../styles/theme";
 import CustomModal from "../components/CustomModal";
+import { db } from "../firebase";
 
 function LoginScreen({ navigation }) {
   const [inputText, setInputText] = useState("");
   const [isResisterModalVisible, setIsResisterModalVisible] = useState(false);
   const [isFormModalVisible, setIsFormModalVisible] = useState(false);
+
+  // const isResisterUser = async () => {
+  //   const userDb = await db.collection("users").where("phoneNumber", "==", inputText).get();
+
+  //   console.log(!userDb.empty);
+  // };
 
   const handleInputChange = (text) => {
     if (/^\d{0,11}$/.test(text)) {
@@ -17,7 +24,7 @@ function LoginScreen({ navigation }) {
     }
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     // 폰 번호를 형식대로 입력했는지 확인
     const phoneNumberRex = /^(01[016789]{1})[0-9]{8}$/;
     if (!inputText.match(phoneNumberRex)) {
@@ -25,7 +32,13 @@ function LoginScreen({ navigation }) {
       return;
     }
 
-    // db에 있는지 확인
+    // db에 있는지 확인 (inputText가 db에 있는지 확인)
+    const userDb = await db.collection("users").where("phoneNumber", "==", inputText).get();
+    console.log(!userDb.empty);
+    if (userDb.empty) {
+      setIsResisterModalVisible(true);
+      return;
+    }
 
     navigation.navigate("ExperimentDescription");
   };
@@ -36,10 +49,6 @@ function LoginScreen({ navigation }) {
 
   const closeFormModal = () => {
     setIsFormModalVisible(false);
-  };
-
-  const handleInputFocus = () => {
-    console.log("hey");
   };
 
   return (

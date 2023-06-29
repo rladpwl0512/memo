@@ -9,6 +9,7 @@ import { Audio } from "expo-av";
 function SoundCheckScreen({ navigation }) {
   const [sound, setSound] = useState();
   const [isWrongAnswerModalVisible, setIsWrongAnswerModalVisible] = useState(false);
+  const [isListenModalVisible, setIsListenModalVisible] = useState(false);
   const [clickedButton, setClickedButton] = useState("");
 
   async function handlePlayClick() {
@@ -19,8 +20,13 @@ function SoundCheckScreen({ navigation }) {
 
   const handleButtonClick = (clickedButton) => () => {
     setClickedButton(clickedButton);
+    if (!sound) {
+      setIsListenModalVisible(true);
+      return;
+    }
 
     if (clickedButton !== "car") {
+      sound.unloadAsync();
       setIsWrongAnswerModalVisible(true);
       return;
     }
@@ -30,6 +36,11 @@ function SoundCheckScreen({ navigation }) {
 
   const closeWrongAnswerModal = () => {
     setIsWrongAnswerModalVisible(false);
+    setClickedButton("");
+  };
+
+  const closeListenModal = () => {
+    setIsListenModalVisible(false);
     setClickedButton("");
   };
 
@@ -52,6 +63,16 @@ function SoundCheckScreen({ navigation }) {
           <Text style={[styles.modalTitle, global.title]}>틀렸습니다</Text>
           <Text style={[styles.modalContent, global.content]}>소리를 충분히 키운 후 스피커 아이콘을 눌러 다시 들어보세요</Text>
           <Pressable style={styles.modalButton} onPress={closeWrongAnswerModal}>
+            <Text style={[global.title, styles.modalButtonText]}>확인</Text>
+          </Pressable>
+        </View>
+      </CustomModal>
+
+      <CustomModal visible={isListenModalVisible} onClose={closeListenModal}>
+        <View style={styles.modalContainer}>
+          <Text style={[styles.modalTitle, global.title]}>소리를 듣지 않고 체크하셨습니다</Text>
+          <Text style={[styles.modalContent, global.content]}>스피커 아이콘을 눌러 소리를 들은 후, 답해주세요</Text>
+          <Pressable style={styles.modalButton} onPress={closeListenModal}>
             <Text style={[global.title, styles.modalButtonText]}>확인</Text>
           </Pressable>
         </View>
