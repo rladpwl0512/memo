@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
 import global from "../styles/globalStyle";
 import GreenButton from "../components/GreenButton";
@@ -11,12 +11,7 @@ function LoginScreen({ navigation }) {
   const [inputText, setInputText] = useState("");
   const [isResisterModalVisible, setIsResisterModalVisible] = useState(false);
   const [isFormModalVisible, setIsFormModalVisible] = useState(false);
-
-  // const isResisterUser = async () => {
-  //   const userDb = await db.collection("users").where("phoneNumber", "==", inputText).get();
-
-  //   console.log(!userDb.empty);
-  // };
+  const [isTwiceModalVisible, setIsTwiceModalVisible] = useState(false);
 
   const handleInputChange = (text) => {
     if (/^\d{0,11}$/.test(text)) {
@@ -24,22 +19,44 @@ function LoginScreen({ navigation }) {
     }
   };
 
+  // TODO: 리팩터링
   const handleButtonClick = async () => {
-    // 폰 번호를 형식대로 입력했는지 확인
+    // 폰 번호를 형식대로 입력하지 않았으면 종료
     const phoneNumberRex = /^(01[016789]{1})[0-9]{8}$/;
     if (!inputText.match(phoneNumberRex)) {
       setIsFormModalVisible(true);
       return;
     }
 
-    // db에 있는지 확인 (inputText가 db에 있는지 확인)
+    // db에 없으면 종료 (inputText가 db에 있는지 확인)
     const userDb = await db.collection("users").where("phoneNumber", "==", inputText).get();
-    console.log(!userDb.empty);
+
     if (userDb.empty) {
       setIsResisterModalVisible(true);
       return;
     }
 
+    // flag가 이미 true라면 modal 띄우고 splash로 이동 후 종료 (이미 참여했음)
+    for (const doc of userDb.docs) {
+      const userData = doc.data();
+
+      if (userData.loginFlag) {
+        setIsTwiceModalVisible(true);
+        navigation.navigate("ResearchApprovement");
+        return;
+      }
+    }
+
+    // 모두 만족할 시 flag true로 만들기 + 실험 안내 페이지로 넘어감
+    for (const doc of userDb.docs) {
+      console.log("count");
+      const userData = doc.data();
+
+      if (userData.loginFlag !== true) {
+        const userRef = doc.ref;
+        await userRef.update({ loginFlag: true });
+      }
+    }
     navigation.navigate("ExperimentDescription");
   };
 
@@ -49,6 +66,10 @@ function LoginScreen({ navigation }) {
 
   const closeFormModal = () => {
     setIsFormModalVisible(false);
+  };
+
+  const closeTwiceModal = () => {
+    setIsTwiceModalVisible(false);
   };
 
   return (
@@ -84,6 +105,16 @@ function LoginScreen({ navigation }) {
           <Text style={[styles.modalTitle, global.title]}>잘못 입력하셨습니다</Text>
           <Text style={[styles.modalContent, global.content]}>번호를 올바른 형식으로 입력해주세요. (예시: 01012345678)</Text>
           <Pressable style={styles.modalButton} onPress={closeFormModal}>
+            <Text style={[global.title, styles.modalButtonText]}>확인</Text>
+          </Pressable>
+        </View>
+      </CustomModal>
+
+      <CustomModal visible={isTwiceModalVisible} onClose={closeTwiceModal}>
+        <View style={styles.modalContainer}>
+          <Text style={[styles.modalTitle, global.title]}>이미 연구에 참여하셨습니다</Text>
+          <Text style={[styles.modalContent, global.content]}>두번 로그인할 수 없습니다. (문의: inyoung0727@swu.ac.kr)</Text>
+          <Pressable style={styles.modalButton} onPress={closeTwiceModal}>
             <Text style={[global.title, styles.modalButtonText]}>확인</Text>
           </Pressable>
         </View>
