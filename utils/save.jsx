@@ -2,37 +2,37 @@ const saveQuizProblems = async () => {
   const quizProblems1 = [
     {
       code: "happy",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fhappy.png?alt=media&token=0f851783-f3e6-4d37-a73b-9f3d12bdfbc0",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fhappy.png?alt=media",
       answer: 1,
     },
     {
       code: "surprise",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fsurprise.png?alt=media&token=8b17488c-2557-4b24-83ea-175a273e8948",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fsurprise.png?alt=media",
       answer: 2,
     },
     {
       code: "shyness",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fshy.png?alt=media&token=10d241c4-0383-4e36-8f13-db7b273aab03",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fshy.png?alt=media",
       answer: 3,
     },
     {
       code: "anxious",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fanxious.png?alt=media&token=82df3a94-0d76-49d6-a5dc-857a2d838f06",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fanxious.png?alt=media",
       answer: 4,
     },
     {
       code: "sadness",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fsad.png?alt=media&token=4fcddc4e-808e-43aa-ba76-61e9000a6e09",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fsad.png?alt=media",
       answer: 5,
     },
     {
       code: "anger",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fangry.png?alt=media&token=7e64d95f-94fd-4d23-9ace-daf500714413",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fangry.png?alt=media",
       answer: 6,
     },
     {
       code: "neutral",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fnormal.png?alt=media&token=630970db-6e78-48dd-9fd2-4d06f5e6723b",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fnormal.png?alt=media",
       answer: 0,
     },
   ];
@@ -41,22 +41,22 @@ const saveQuizProblems = async () => {
   const quizProblems2 = [
     {
       code: "happy",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fhappy.mp3?alt=media&token=f852e595-97bc-43f1-8fc9-4d70221c5fa7",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fhappy.mp3?alt=media",
       answer: 1,
     },
     {
       code: "anxious",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanxious.mp3?alt=media&token=88a8dfef-ac13-4339-8a8b-f7054233ee6e",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanxious.mp3?alt=media",
       answer: 4,
     },
     {
       code: "sadness",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fsad.mp3?alt=media&token=0b848a97-cb7e-46fb-aaa9-13b77c02b0d9",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fsad.mp3?alt=media",
       answer: 5,
     },
     {
       code: "anger",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanger.mp3?alt=media&token=cb496297-9446-4b37-ab64-42ff5dc57873",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanger.mp3?alt=media",
       answer: 6,
     },
   ];

@@ -6,15 +6,11 @@ import global from "../styles/globalStyle";
 const QuizScreen = ({ navigation }) => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [showWait, setShowWait] = useState(true);
-  const [showProblem, setShowProblem] = useState(false);
-  const [showBlank, setShowBlank] = useState(false);
-  const [showOptions, setShowOptions] = useState(false);
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     const getQuiz = async () => {
       const quizDb = await db.collection("quiz").doc("chapter1").get();
-
       const shuffledQuestions = shuffleQuestions(quizDb.data().problems);
       setQuestions(shuffledQuestions);
     };
@@ -43,34 +39,21 @@ const QuizScreen = ({ navigation }) => {
   };
 
   const showNextQuestion = () => {
-    // Show the "wait" message for 1 second
-    setShowWait(true);
-    setShowProblem(false);
-    setShowBlank(false);
-    setShowOptions(false);
+    setStatus("wait");
 
-    // Show the problem for 1 second
     setTimeout(() => {
-      setShowWait(false);
-      setShowProblem(true);
+      setStatus("problem");
 
-      // Hold the blank screen for 1 second
       setTimeout(() => {
-        setShowProblem(false);
-        setShowBlank(true);
+        setStatus("blank");
 
-        // Show the options for 10 seconds
         setTimeout(() => {
-          setShowBlank(false);
-          setShowOptions(true);
+          setStatus("options");
 
           setTimeout(() => {
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-            setShowOptions(false);
-
-            // Continue to the next question
-            // showNextQuestion();
-          }, 3000);
+            setStatus("");
+          }, 10000);
         }, 1000);
       }, 1000);
     }, 1000);
@@ -79,12 +62,10 @@ const QuizScreen = ({ navigation }) => {
   return (
     currentQuestionIndex < questions.length && (
       <View style={[global.container, styles.container]}>
-        {showWait && <Text>Wait.. {currentQuestionIndex}</Text>}
-        {showProblem && <Image style={styles.icon} source={require("../assets/icon/speaker.png")} />}
-        {/* {showProblem && <Image source={{ uri: "https://t1.kakaocdn.net/friends/official/with-kangdaniel/images/img-little-apeach-01.png" }} />} */}
-        {/* {showProblem && <Image source={{ uri: questions[currentQuestionIndex].question }} />} */}
-        {showBlank && <View></View>}
-        {showOptions && <Text>{questions[currentQuestionIndex].answer}</Text>}
+        {status === "wait" && <Text>Wait.. {currentQuestionIndex}</Text>}
+        {status === "problem" && <Image style={styles.image} source={{ uri: questions[currentQuestionIndex].question }} />}
+        {status === "blank" && <View></View>}
+        {status === "options" && <Text>{questions[currentQuestionIndex].answer}</Text>}
       </View>
     )
   );
@@ -100,6 +81,11 @@ const styles = StyleSheet.create({
   icon: {
     width: 100,
     height: 100,
+  },
+
+  image: {
+    width: 200,
+    height: 200,
   },
 });
 
