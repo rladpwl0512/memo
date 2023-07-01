@@ -42,7 +42,6 @@ function LoginScreen({ navigation }) {
 
       if (userData.loginFlag) {
         setIsTwiceModalVisible(true);
-        navigation.navigate("ResearchApprovement");
         return;
       }
     }
