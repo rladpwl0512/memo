@@ -51,10 +51,10 @@ function SoundCheckScreen({ navigation }) {
           <Image style={styles.icon} source={require("../assets/icon/speaker.png")} />
         </Pressable>
         <View style={styles.buttonContainer}>
-          <GreenButton text="귀뚜라미" width="40%" onClick={handleButtonClick("cricket")} outline={clickedButton !== "cricket"} />
-          <GreenButton text="닭" width="40%" onClick={handleButtonClick("chicken")} outline={clickedButton !== "chicken"} />
-          <GreenButton text="자동차" width="40%" onClick={handleButtonClick("car")} outline={clickedButton !== "car"} />
-          <GreenButton text="초인종" width="40%" onClick={handleButtonClick("bell")} outline={clickedButton !== "bell"} />
+          <GreenButton text="귀뚜라미" width="40%" onClick={handleButtonClick("cricket")} clicked={clickedButton === "cricket"} />
+          <GreenButton text="닭" width="40%" onClick={handleButtonClick("chicken")} clicked={clickedButton === "chicken"} />
+          <GreenButton text="자동차" width="40%" onClick={handleButtonClick("car")} clicked={clickedButton === "car"} />
+          <GreenButton text="초인종" width="40%" onClick={handleButtonClick("bell")} clicked={clickedButton === "bell"} />
         </View>
       </View>
 
