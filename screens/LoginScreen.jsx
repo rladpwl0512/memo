@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
 import global from "../styles/globalStyle";
 import GreenButton from "../components/GreenButton";
@@ -6,12 +6,24 @@ import { Ionicons } from "@expo/vector-icons";
 import colors from "../styles/theme";
 import CustomModal from "../components/CustomModal";
 import { db } from "../firebase";
+import { UserContext } from "../contexts/UserContext";
 
 function LoginScreen({ navigation }) {
+  const { updateUser } = useContext(UserContext);
+
   const [inputText, setInputText] = useState("");
   const [isResisterModalVisible, setIsResisterModalVisible] = useState(false);
   const [isFormModalVisible, setIsFormModalVisible] = useState(false);
   const [isTwiceModalVisible, setIsTwiceModalVisible] = useState(false);
+
+  const createUserDoc = async (phoneNumber) => {
+    try {
+      await db.collection("solve").doc(phoneNumber).set({});
+      console.log("created successfully.");
+    } catch (error) {
+      console.log("Error creating document:", error);
+    }
+  };
 
   const handleInputChange = (text) => {
     if (/^\d{0,11}$/.test(text)) {
@@ -48,7 +60,6 @@ function LoginScreen({ navigation }) {
 
     // 모두 만족할 시 flag true로 만들기 + 실험 안내 페이지로 넘어감
     for (const doc of userDb.docs) {
-      console.log("count");
       const userData = doc.data();
 
       if (userData.loginFlag !== true) {
@@ -56,6 +67,8 @@ function LoginScreen({ navigation }) {
         await userRef.update({ loginFlag: true });
       }
     }
+    createUserDoc(inputText);
+    updateUser(inputText);
     navigation.navigate("ExperimentDescription");
   };
 
