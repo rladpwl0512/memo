@@ -9,29 +9,35 @@ import { UserContext } from "../contexts/UserContext";
 
 const QuizScreen = ({ navigation }) => {
   const { user } = useContext(UserContext);
-  const [lastClickedButtonCount, setLastClickedButtonCount] = useState(0);
+
   const [clickedButton, setClickedButton] = useState("");
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [status, setStatus] = useState("");
   const [emotions, setEmotions] = useState([]);
+  const [status, setStatus] = useState("");
 
   const countRef = useRef(0);
   const clickedButtonRef = useRef(null);
   const lastClickedButtonCountRef = useRef(null);
 
   useEffect(() => {
+    const getQuiz = async () => {
+      const quizDb = await db.collection("quiz").doc("chapter1").get();
+      const shuffledQuestions = shuffleArray(quizDb.data().problems);
+      setQuestions(shuffledQuestions);
+    };
+
+    getQuiz();
+  }, []);
+
+  useEffect(() => {
+    console.log("전: " + countRef.current, clickedButtonRef.current, lastClickedButtonCountRef.current);
     clickedButtonRef.current = clickedButton;
-    lastClickedButtonCountRef.current = lastClickedButtonCount;
+    lastClickedButtonCountRef.current = countRef.current;
+    console.log("후: " + countRef.current, clickedButtonRef.current, lastClickedButtonCountRef.current);
   }, [clickedButton]);
 
-  // 테스트용
   useEffect(() => {
-    console.log(questions);
-  }, [questions]);
-
-  useEffect(() => {
-    // clickedButton이 눌려질 때마다 -> count 세팅 (마지막 count를 데이터로 사용)
     if (status === "options") {
       let count = 1;
       const interval = setInterval(() => {
@@ -46,23 +52,8 @@ const QuizScreen = ({ navigation }) => {
   }, [status]);
 
   useEffect(() => {
-    const getQuiz = async () => {
-      const quizDb = await db.collection("quiz").doc("chapter1").get();
-      const shuffledQuestions = shuffleArray(quizDb.data().problems);
-      setQuestions(shuffledQuestions);
-    };
-
-    getQuiz();
-  }, []);
-
-  useEffect(() => {
-    // 초기화
-    setClickedButton("");
-    setLastClickedButtonCount(0);
-    // 이것도 따로해야함?
     countRef.current = 0;
-    clickedButtonRef.current = 0;
-    lastClickedButtonCountRef.current = 0;
+    setClickedButton("");
     setEmotions(shuffleArray(["무표정", "행복", "놀람", "부끄러움", "불안", "슬픔", "화남"]));
   }, [currentQuestionIndex]);
 
@@ -78,27 +69,24 @@ const QuizScreen = ({ navigation }) => {
   }, [currentQuestionIndex, questions]);
 
   const handleButtonClick = (emotion) => () => {
-    setLastClickedButtonCount(countRef.current);
     setClickedButton(emotion);
   };
 
-  const sendSolvedData = (idx, emotionIdx, reactionTime) => {
-    const isCorrectAnswer = emotionIdx === questions[idx].answer;
+  const sendSolvedData = (idx, selectedAnswer, reactionTime) => {
+    const isCorrectAnswer = selectedAnswer === questions[idx].answer;
     const test = {
       code: questions[idx].code,
       correctNumber: +isCorrectAnswer,
       wrongNumber: +!isCorrectAnswer,
-      selectedResponse: emotionIdx,
+      selectedResponse: selectedAnswer,
       correctRT: isCorrectAnswer ? reactionTime : 0,
       wrongRT: !isCorrectAnswer ? reactionTime : 0,
     };
 
-    console.log(test);
-
     db.collection("solve")
       .doc(user)
       .update({
-        first: firebase.firestore.FieldValue.arrayUnion(test),
+        chapter1: firebase.firestore.FieldValue.arrayUnion(test),
       })
       .then(() => {
         console.log("Test added to Firestore successfully.");
@@ -137,7 +125,6 @@ const QuizScreen = ({ navigation }) => {
           setStatus("options");
 
           setTimeout(() => {
-            // 데이터 보내기
             const clickedButtonValue = clickedButtonRef.current;
             const emotionKey = getEmotionKey(clickedButtonValue);
             const lastClickedButtonCountValue = lastClickedButtonCountRef.current;
