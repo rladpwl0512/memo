@@ -7,7 +7,7 @@ import GreenButton from "../components/GreenButton";
 import { Entypo } from "@expo/vector-icons";
 import { UserContext } from "../contexts/UserContext";
 
-const QuizScreen = ({ navigation }) => {
+const FirstExpScreen = ({ navigation }) => {
   const { user } = useContext(UserContext);
 
   const [clickedButton, setClickedButton] = useState("");
@@ -21,25 +21,35 @@ const QuizScreen = ({ navigation }) => {
   const lastClickedButtonCountRef = useRef(null);
 
   useEffect(() => {
+    console.log(questions);
+  }, [questions]);
+
+  useEffect(() => {
     const getQuiz = async () => {
-      const quizDb = await db.collection("quiz").doc("chapter1").get();
-      const shuffledQuestions = shuffleArray(quizDb.data().problems);
-      setQuestions(shuffledQuestions);
+      const exp1Doc = await db.collection("exp").doc("exp1").get();
+      const exp1Data = exp1Doc.data();
+      const shuffledPre = shuffleArray(exp1Data.pre);
+      const shuffledLevel1 = shuffleArray(exp1Data.level1);
+      const shuffledLevel2 = shuffleArray(exp1Data.level2);
+      const shuffledLevel3 = shuffleArray(exp1Data.level3);
+      const shuffledLevel4 = shuffleArray(exp1Data.level4);
+      const allQuestions = [...shuffledPre, ...shuffledLevel1, ...shuffledLevel2, ...shuffledLevel3, ...shuffledLevel4];
+      setQuestions(allQuestions);
     };
 
     getQuiz();
   }, []);
 
   useEffect(() => {
-    console.log("전: " + countRef.current, clickedButtonRef.current, lastClickedButtonCountRef.current);
     clickedButtonRef.current = clickedButton;
     lastClickedButtonCountRef.current = countRef.current;
-    console.log("후: " + countRef.current, clickedButtonRef.current, lastClickedButtonCountRef.current);
   }, [clickedButton]);
 
   useEffect(() => {
     if (status === "options") {
       let count = 1;
+      countRef.current = 0; // TODO: refactor
+
       const interval = setInterval(() => {
         countRef.current = count;
         count++;
@@ -54,7 +64,7 @@ const QuizScreen = ({ navigation }) => {
   useEffect(() => {
     countRef.current = 0;
     setClickedButton("");
-    setEmotions(shuffleArray(["무표정", "행복", "놀람", "부끄러움", "불안", "슬픔", "화남"]));
+    setEmotions(shuffleArray(["무표정", "기쁨", "놀람", "부끄러움", "불안", "슬픔", "화남"]));
   }, [currentQuestionIndex]);
 
   useEffect(() => {
@@ -86,7 +96,7 @@ const QuizScreen = ({ navigation }) => {
     db.collection("solve")
       .doc(user)
       .update({
-        chapter1: firebase.firestore.FieldValue.arrayUnion(test),
+        exp1: firebase.firestore.FieldValue.arrayUnion(test),
       })
       .then(() => {
         console.log("Test added to Firestore successfully.");
@@ -99,7 +109,7 @@ const QuizScreen = ({ navigation }) => {
   const getEmotionKey = (clickedEmotion) => {
     const emotion = {
       0: "무표정",
-      1: "행복",
+      1: "기쁨",
       2: "놀람",
       3: "부끄러움",
       4: "불안",
@@ -180,4 +190,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default QuizScreen;
+export default FirstExpScreen;
