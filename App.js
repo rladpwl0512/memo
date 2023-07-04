@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AppLoading from "expo-app-loading"; //TODO: deprecated. expo-splash-screen 사용해서 변경하기
@@ -13,8 +13,11 @@ import ThirdExperimentDescriptionScreen from "./screens/ThirdExperimentDescripti
 import SoundCheckDescriptionScreen from "./screens/SoundCheckDescriptionScreen";
 import SoundCheckScreen from "./screens/SoundCheckScreen";
 import FinishScreen from "./screens/FinishScreen";
-import QuizScreen from "./screens/QuizScreen";
+import FirstExpScreen from "./screens/FirstExpScreen";
+import SecondExpScreen from "./screens/SecondExpScreen";
+import ThirdExpScreen from "./screens/ThirdExpScreen";
 import { db } from "./firebase";
+import { UserProvider } from "./contexts/UserContext";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,18 +34,22 @@ export default function App() {
 
   return isReadyFont ? (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="FirstExperimentDescription">
-        <Stack.Screen name="ResearchApprovement" component={ResearchApprovementScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="ExperimentDescription" component={ExperimentDescriptionScreen} />
-        <Stack.Screen name="FirstExperimentDescription" component={FirstExperimentDescriptionScreen} />
-        <Stack.Screen name="SecondExperimentDescription" component={SecondExperimentDescriptionScreen} />
-        <Stack.Screen name="ThirdExperimentDescription" component={ThirdExperimentDescriptionScreen} />
-        <Stack.Screen name="SoundCheckDescription" component={SoundCheckDescriptionScreen} />
-        <Stack.Screen name="Quiz" component={QuizScreen} />
-        <Stack.Screen name="SoundCheck" component={SoundCheckScreen} />
-        <Stack.Screen name="Finish" component={FinishScreen} />
-      </Stack.Navigator>
+      <UserProvider>
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="SecondExp">
+          <Stack.Screen name="ResearchApprovement" component={ResearchApprovementScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="ExperimentDescription" component={ExperimentDescriptionScreen} />
+          <Stack.Screen name="FirstExperimentDescription" component={FirstExperimentDescriptionScreen} />
+          <Stack.Screen name="SecondExperimentDescription" component={SecondExperimentDescriptionScreen} />
+          <Stack.Screen name="ThirdExperimentDescription" component={ThirdExperimentDescriptionScreen} />
+          <Stack.Screen name="SoundCheckDescription" component={SoundCheckDescriptionScreen} />
+          <Stack.Screen name="FirstExp" component={FirstExpScreen} />
+          <Stack.Screen name="SecondExp" component={SecondExpScreen} />
+          <Stack.Screen name="ThirdExp" component={ThirdExpScreen} />
+          <Stack.Screen name="SoundCheck" component={SoundCheckScreen} />
+          <Stack.Screen name="Finish" component={FinishScreen} />
+        </Stack.Navigator>
+      </UserProvider>
     </NavigationContainer>
   ) : (
     <AppLoading
