@@ -129,14 +129,24 @@ const SecondExpScreen = ({ navigation }) => {
 
     return key ? parseInt(key) : null;
   };
-
-  const playAudio = async (audioFile) => {
+  const playAudio = (audioFile, callback) => {
     try {
-      const { sound } = await Audio.Sound.createAsync({ uri: audioFile });
-      soundRef.current = sound;
-      await soundRef.current.playAsync();
+      Audio.Sound.createAsync({ uri: audioFile }, { shouldPlay: true }).then(({ sound }) => {
+        sound.setOnPlaybackStatusUpdate((status) => {
+          if (status.didJustFinish) {
+            console.log("finish");
+            // Playback finished
+            setStatus("blank");
+
+            setTimeout(() => {
+              setStatus("options");
+              callback();
+            }, 1000);
+          }
+        });
+      });
     } catch (error) {
-      console.log("Error playing audio: ", error);
+      console.log("Failed to play the audio", error);
     }
   };
 
@@ -148,26 +158,60 @@ const SecondExpScreen = ({ navigation }) => {
 
       const currentQuestion = questions[currentQuestionIndex];
       const audioFile = currentQuestion.question;
-      console.log(audioFile);
 
-      playAudio(audioFile).then(() => {
-        setStatus("wait");
-
+      playAudio(audioFile, () => {
         setTimeout(() => {
-          setStatus("options");
-        }, 1000);
+          const clickedButtonValue = clickedButtonRef.current;
+          const emotionKey = getEmotionKey(clickedButtonValue);
+          const lastClickedButtonCountValue = lastClickedButtonCountRef.current;
+          sendSolvedData(currentQuestionIndex, emotionKey, lastClickedButtonCountValue);
+          setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+          setStatus("");
+        }, 10000);
       });
-
-      setTimeout(() => {
-        const clickedButtonValue = clickedButtonRef.current;
-        const emotionKey = getEmotionKey(clickedButtonValue);
-        const lastClickedButtonCountValue = lastClickedButtonCountRef.current;
-        sendSolvedData(currentQuestionIndex, emotionKey, lastClickedButtonCountValue);
-        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-        setStatus("");
-      }, 10000);
     }, 1000);
   };
+
+  //   try {
+  //     const { sound } = await Audio.Sound.createAsync({ uri: audioFile }, { shouldPlay: true });
+
+  //     sound.setOnPlaybackStatusUpdate((status) => {
+  //       if (status.didJustFinish) {
+  //         console.log("finish");
+  //         // Playback finished
+  //         setStatus("blank");
+
+  //         setTimeout(() => {
+  //           setStatus("options");
+  //         }, 1000);
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.log("Failed to play the audio", error);
+  //   }
+  // };
+
+  // const showNextQuestion = () => {
+  //   setStatus("wait");
+
+  //   setTimeout(() => {
+  //     setStatus("problem");
+
+  //     const currentQuestion = questions[currentQuestionIndex];
+  //     const audioFile = currentQuestion.question;
+
+  //     playAudio(audioFile);
+
+  //     setTimeout(() => {
+  //       const clickedButtonValue = clickedButtonRef.current;
+  //       const emotionKey = getEmotionKey(clickedButtonValue);
+  //       const lastClickedButtonCountValue = lastClickedButtonCountRef.current;
+  //       sendSolvedData(currentQuestionIndex, emotionKey, lastClickedButtonCountValue);
+  //       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+  //       setStatus("");
+  //     }, 10000);
+  //   }, 1000);
+  // };
 
   return (
     currentQuestionIndex < questions.length && (
