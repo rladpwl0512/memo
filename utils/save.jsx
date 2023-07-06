@@ -275,3 +275,199 @@ const saveQuizProblems2 = async () => {
 saveQuizProblems2()
   .then(() => console.log("Quiz problems saved successfully."))
   .catch((error) => console.error("Error saving quiz problems:", error));
+
+const saveQuizProblems3 = async () => {
+  const pre = [
+    {
+      code: "pre1",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fhappy.mp3?alt=media",
+      answer: 6,
+    },
+    {
+      code: "pre2",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanxious.mp3?alt=media",
+      answer: 0,
+    },
+  ];
+  const level11 = [
+    {
+      code: "happy11",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fhappy.mp3?alt=media",
+      answer: 1,
+    },
+    {
+      code: "anxious11",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanxious.mp3?alt=media",
+      answer: 4,
+    },
+    {
+      code: "sadness11",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fsad.mp3?alt=media",
+      answer: 5,
+    },
+    {
+      code: "anger11",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanger.mp3?alt=media",
+      answer: 6,
+    },
+  ];
+  const level12 = [
+    {
+      code: "happy12",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fhappy.mp3?alt=media",
+      answer: 1,
+    },
+    {
+      code: "anxious12",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanxious.mp3?alt=media",
+      answer: 4,
+    },
+    {
+      code: "sadness12",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fsad.mp3?alt=media",
+      answer: 5,
+    },
+    {
+      code: "anger12",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanger.mp3?alt=media",
+      answer: 6,
+    },
+  ];
+  const level21 = [
+    {
+      code: "happy21",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fhappy.mp3?alt=media",
+      answer: 1,
+    },
+    {
+      code: "anxious21",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanxious.mp3?alt=media",
+      answer: 4,
+    },
+    {
+      code: "sadness21",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fsad.mp3?alt=media",
+      answer: 5,
+    },
+    {
+      code: "anger21",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanger.mp3?alt=media",
+      answer: 6,
+    },
+  ];
+  const level22 = [
+    {
+      code: "happy22",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fhappy.mp3?alt=media",
+      answer: 1,
+    },
+    {
+      code: "anxious22",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanxious.mp3?alt=media",
+      answer: 4,
+    },
+    {
+      code: "sadness22",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fsad.mp3?alt=media",
+      answer: 5,
+    },
+    {
+      code: "anger22",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanger.mp3?alt=media",
+      answer: 6,
+    },
+  ];
+  const level31 = [
+    {
+      code: "happy31",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fhappy.mp3?alt=media",
+      answer: 1,
+    },
+    {
+      code: "anxious31",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanxious.mp3?alt=media",
+      answer: 4,
+    },
+    {
+      code: "sadness31",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fsad.mp3?alt=media",
+      answer: 5,
+    },
+    {
+      code: "anger31",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanger.mp3?alt=media",
+      answer: 6,
+    },
+  ];
+  const level32 = [
+    {
+      code: "happy32",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fhappy.mp3?alt=media",
+      answer: 1,
+    },
+    {
+      code: "anxious32",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanxious.mp3?alt=media",
+      answer: 4,
+    },
+    {
+      code: "sadness32",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fsad.mp3?alt=media",
+      answer: 5,
+    },
+    {
+      code: "anger32",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanger.mp3?alt=media",
+      answer: 6,
+    },
+  ];
+  const level41 = [
+    {
+      code: "happy41",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fhappy.mp3?alt=media",
+      answer: 1,
+    },
+    {
+      code: "anxious41",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanxious.mp3?alt=media",
+      answer: 4,
+    },
+    {
+      code: "sadness41",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fsad.mp3?alt=media",
+      answer: 5,
+    },
+    {
+      code: "anger41",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanger.mp3?alt=media",
+      answer: 6,
+    },
+  ];
+  const level42 = [
+    {
+      code: "happy42",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fhappy.mp3?alt=media",
+      answer: 1,
+    },
+    {
+      code: "anxious42",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanxious.mp3?alt=media",
+      answer: 4,
+    },
+    {
+      code: "sadness42",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fsad.mp3?alt=media",
+      answer: 5,
+    },
+    {
+      code: "anger42",
+      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter2%2Fanger.mp3?alt=media",
+      answer: 6,
+    },
+  ];
+  await db.collection("exp").doc("exp3").set({ pre, level11, level12, level21, level22, level31, level32, level41, level42 });
+};
+
+saveQuizProblems3()
+  .then(() => console.log("Quiz problems saved successfully."))
+  .catch((error) => console.error("Error saving quiz problems:", error));

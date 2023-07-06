@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
-import { View, Image, StyleSheet, Pressable } from "react-native";
+import { View, Image, Pressable, StyleSheet } from "react-native";
 import { Audio } from "expo-av";
 import { db, firebase } from "../firebase";
 import global from "../styles/globalStyle";
@@ -20,7 +20,6 @@ const ThirdExpScreen = ({ navigation }) => {
   const countRef = useRef(0);
   const clickedButtonRef = useRef(null);
   const lastClickedButtonCountRef = useRef(null);
-  const soundRef = useRef(null);
 
   // TODO: firebase에 저장?
   const images = {
@@ -39,11 +38,16 @@ const ThirdExpScreen = ({ navigation }) => {
       const exp3Doc = await db.collection("exp").doc("exp3").get();
       const exp3Data = exp3Doc.data();
       const shuffledPre = shuffleArray(exp3Data.pre);
-      const shuffledLevel1 = shuffleArray(exp3Data.level1);
-      const shuffledLevel2 = shuffleArray(exp3Data.level2);
-      const shuffledLevel3 = shuffleArray(exp3Data.level3);
-      const shuffledLevel4 = shuffleArray(exp3Data.level4);
-      const allQuestions = [...shuffledPre, ...shuffledLevel1, ...shuffledLevel2, ...shuffledLevel3, ...shuffledLevel4];
+      const shuffledLevel11 = shuffleArray(exp3Data.level11);
+      const shuffledLevel12 = shuffleArray(exp3Data.level12);
+      const shuffledLevel21 = shuffleArray(exp3Data.level21);
+      const shuffledLevel22 = shuffleArray(exp3Data.level22);
+      const shuffledLevel31 = shuffleArray(exp3Data.level31);
+      const shuffledLevel32 = shuffleArray(exp3Data.level32);
+      const shuffledLevel41 = shuffleArray(exp3Data.level41);
+      const shuffledLevel42 = shuffleArray(exp3Data.level42);
+      const allQuestions = [...shuffledPre, ...shuffledLevel11, ...shuffledLevel12, ...shuffledLevel21, ...shuffledLevel22, ...shuffledLevel31, ...shuffledLevel32, ...shuffledLevel41, ...shuffledLevel42];
+
       setQuestions(allQuestions);
     };
 
@@ -81,7 +85,7 @@ const ThirdExpScreen = ({ navigation }) => {
     if (questions.length === 0) return;
 
     if (currentQuestionIndex === questions.length) {
-      navigation.navigate("SecondExperimentDescription");
+      navigation.navigate("Finish");
 
       return;
     }
@@ -128,6 +132,25 @@ const ThirdExpScreen = ({ navigation }) => {
 
     return key ? parseInt(key) : null;
   };
+  const playAudio = (audioFile, callback) => {
+    try {
+      Audio.Sound.createAsync({ uri: audioFile }, { shouldPlay: true }).then(({ sound }) => {
+        sound.setOnPlaybackStatusUpdate((status) => {
+          if (status.didJustFinish) {
+            console.log("finish");
+            setStatus("blank");
+
+            setTimeout(() => {
+              setStatus("options");
+              callback();
+            }, 1000);
+          }
+        });
+      });
+    } catch (error) {
+      console.log("Failed to play the audio", error);
+    }
+  };
 
   const showNextQuestion = () => {
     setStatus("wait");
@@ -135,22 +158,19 @@ const ThirdExpScreen = ({ navigation }) => {
     setTimeout(() => {
       setStatus("problem");
 
-      setTimeout(() => {
-        setStatus("blank");
+      const currentQuestion = questions[currentQuestionIndex];
+      const audioFile = currentQuestion.question;
 
+      playAudio(audioFile, () => {
         setTimeout(() => {
-          setStatus("options");
-
-          setTimeout(() => {
-            const clickedButtonValue = clickedButtonRef.current;
-            const emotionKey = getEmotionKey(clickedButtonValue);
-            const lastClickedButtonCountValue = lastClickedButtonCountRef.current;
-            sendSolvedData(currentQuestionIndex, emotionKey, lastClickedButtonCountValue);
-            setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-            setStatus("");
-          }, 100000);
-        }, 1000);
-      }, 1000);
+          const clickedButtonValue = clickedButtonRef.current;
+          const emotionKey = getEmotionKey(clickedButtonValue);
+          const lastClickedButtonCountValue = lastClickedButtonCountRef.current;
+          sendSolvedData(currentQuestionIndex, emotionKey, lastClickedButtonCountValue);
+          setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+          setStatus("");
+        }, 10000);
+      });
     }, 1000);
   };
 
