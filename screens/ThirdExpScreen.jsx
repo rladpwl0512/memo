@@ -7,6 +7,7 @@ import { shuffleArray } from "../utils/utils";
 import { Entypo } from "@expo/vector-icons";
 import { UserContext } from "../contexts/UserContext";
 import colors from "../styles/theme";
+import Description from "../components/Description";
 
 const ThirdExpScreen = ({ navigation }) => {
   const { user } = useContext(UserContext);
@@ -16,10 +17,13 @@ const ThirdExpScreen = ({ navigation }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [emotions, setEmotions] = useState([]);
   const [status, setStatus] = useState("");
+  const [readyToStart, setReadyToStart] = useState(false);
 
   const countRef = useRef(0);
   const clickedButtonRef = useRef(null);
   const lastClickedButtonCountRef = useRef(null);
+  const questionsRef = useRef(null);
+  const isPreRef = useRef(true);
 
   // TODO: firebase에 저장?
   const images = {
@@ -46,9 +50,10 @@ const ThirdExpScreen = ({ navigation }) => {
       const shuffledLevel32 = shuffleArray(exp3Data.level32);
       const shuffledLevel41 = shuffleArray(exp3Data.level41);
       const shuffledLevel42 = shuffleArray(exp3Data.level42);
-      const allQuestions = [...shuffledPre, ...shuffledLevel11, ...shuffledLevel12, ...shuffledLevel21, ...shuffledLevel22, ...shuffledLevel31, ...shuffledLevel32, ...shuffledLevel41, ...shuffledLevel42];
+      const preQuestion = [...shuffledPre];
+      questionsRef.current = [...shuffledLevel11, ...shuffledLevel12, ...shuffledLevel21, ...shuffledLevel22, ...shuffledLevel31, ...shuffledLevel32, ...shuffledLevel41, ...shuffledLevel42];
 
-      setQuestions(allQuestions);
+      setQuestions(preQuestion);
     };
 
     getQuiz();
@@ -84,6 +89,13 @@ const ThirdExpScreen = ({ navigation }) => {
   useEffect(() => {
     if (questions.length === 0) return;
 
+    if (isPreRef.current && currentQuestionIndex === questions.length) {
+      isPreRef.current = false;
+      setReadyToStart(true);
+
+      return;
+    }
+
     if (currentQuestionIndex === questions.length) {
       navigation.navigate("Finish");
 
@@ -94,6 +106,12 @@ const ThirdExpScreen = ({ navigation }) => {
 
   const handleButtonClick = (emotion) => () => {
     setClickedButton(emotion);
+  };
+
+  const handleReadyToStartButtonClick = () => {
+    setReadyToStart(false);
+    setQuestions(questionsRef.current);
+    setCurrentQuestionIndex(0);
   };
 
   const sendSolvedData = (idx, selectedAnswer, reactionTime) => {
@@ -174,7 +192,9 @@ const ThirdExpScreen = ({ navigation }) => {
     }, 1000);
   };
 
-  return (
+  return readyToStart ? (
+    <Description image="" titleText="본시행을 시작합니다" contentText="시작 버튼을 누르면 본 시행이 시작됩니다" handleButtonClick={handleReadyToStartButtonClick} buttonText="시작" />
+  ) : (
     currentQuestionIndex < questions.length && (
       <View style={[global.container, styles.container]}>
         {status === "wait" && <Entypo name="plus" size={80} color="black" />}
