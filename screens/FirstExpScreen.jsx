@@ -6,6 +6,7 @@ import { shuffleArray } from "../utils/utils";
 import GreenButton from "../components/GreenButton";
 import { Entypo } from "@expo/vector-icons";
 import { UserContext } from "../contexts/UserContext";
+import Description from "../components/Description";
 
 const FirstExpScreen = ({ navigation }) => {
   const { user } = useContext(UserContext);
@@ -15,10 +16,13 @@ const FirstExpScreen = ({ navigation }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [emotions, setEmotions] = useState([]);
   const [status, setStatus] = useState("");
+  const [readyToStart, setReadyToStart] = useState(false);
 
   const countRef = useRef(0);
   const clickedButtonRef = useRef(null);
   const lastClickedButtonCountRef = useRef(null);
+  const questionsRef = useRef(null);
+  const isPreRef = useRef(true);
 
   useEffect(() => {
     console.log(questions);
@@ -33,8 +37,10 @@ const FirstExpScreen = ({ navigation }) => {
       const shuffledLevel2 = shuffleArray(exp1Data.level2);
       const shuffledLevel3 = shuffleArray(exp1Data.level3);
       const shuffledLevel4 = shuffleArray(exp1Data.level4);
-      const allQuestions = [...shuffledPre, ...shuffledLevel1, ...shuffledLevel2, ...shuffledLevel3, ...shuffledLevel4];
-      setQuestions(allQuestions);
+      const preQuestion = [...shuffledPre];
+      questionsRef.current = [...shuffledLevel1, ...shuffledLevel2, ...shuffledLevel3, ...shuffledLevel4];
+
+      setQuestions(preQuestion);
     };
 
     getQuiz();
@@ -70,16 +76,30 @@ const FirstExpScreen = ({ navigation }) => {
   useEffect(() => {
     if (questions.length === 0) return;
 
+    if (isPreRef.current && currentQuestionIndex === questions.length) {
+      isPreRef.current = false;
+      setReadyToStart(true);
+
+      return;
+    }
+
     if (currentQuestionIndex === questions.length) {
       navigation.navigate("SecondExperimentDescription");
 
       return;
     }
+
     showNextQuestion();
   }, [currentQuestionIndex, questions]);
 
   const handleButtonClick = (emotion) => () => {
     setClickedButton(emotion);
+  };
+
+  const handleReadyToStartButtonClick = () => {
+    setReadyToStart(false);
+    setQuestions(questionsRef.current);
+    setCurrentQuestionIndex(0);
   };
 
   const sendSolvedData = (idx, selectedAnswer, reactionTime) => {
@@ -141,13 +161,15 @@ const FirstExpScreen = ({ navigation }) => {
             sendSolvedData(currentQuestionIndex, emotionKey, lastClickedButtonCountValue);
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
             setStatus("");
-          }, 10000);
+          }, 1000);
         }, 1000);
       }, 1000);
     }, 1000);
   };
 
-  return (
+  return readyToStart ? (
+    <Description image="" titleText="본시행을 시작합니다" contentText="시작 버튼을 누르면 본 시행이 시작됩니다" handleButtonClick={handleReadyToStartButtonClick} buttonText="시작" />
+  ) : (
     currentQuestionIndex < questions.length && (
       <View style={[global.container, styles.container]}>
         {status === "wait" && <Entypo name="plus" size={80} color="black" />}
