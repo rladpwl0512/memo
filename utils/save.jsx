@@ -1,161 +1,131 @@
 const saveQuizProblems = async () => {
   const pre = [
     {
-      code: "pre1",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fangry.png?alt=media",
+      code: "P_1",
       answer: 6,
     },
     {
-      code: "pre2",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fnormal.png?alt=media",
+      code: "P_2",
       answer: 0,
     },
   ];
   const level1 = [
     {
-      code: "happy1",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fhappy.png?alt=media",
+      code: "F1111",
       answer: 1,
     },
     {
-      code: "surprise1",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fsurprise.png?alt=media",
+      code: "F1121",
       answer: 2,
     },
     {
-      code: "shyness1",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fshy.png?alt=media",
+      code: "F1131",
       answer: 3,
     },
     {
-      code: "anxious1",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fanxious.png?alt=media",
+      code: "F1141",
       answer: 4,
     },
     {
-      code: "sadness1",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fsad.png?alt=media",
+      code: "F1151",
       answer: 5,
     },
     {
-      code: "anger1",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fangry.png?alt=media",
+      code: "F1161",
       answer: 6,
     },
     {
-      code: "neutral1",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fnormal.png?alt=media",
+      code: "F1101",
       answer: 0,
     },
   ];
   const level2 = [
     {
-      code: "happy2",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fhappy.png?alt=media",
+      code: "F1211",
       answer: 1,
     },
     {
-      code: "surprise2",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fsurprise.png?alt=media",
+      code: "F1221",
       answer: 2,
     },
     {
-      code: "shyness2",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fshy.png?alt=media",
+      code: "F1231",
       answer: 3,
     },
     {
-      code: "anxious2",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fanxious.png?alt=media",
+      code: "F1241",
       answer: 4,
     },
     {
-      code: "sadness2",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fsad.png?alt=media",
+      code: "F1251",
       answer: 5,
     },
     {
-      code: "anger2",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fangry.png?alt=media",
+      code: "F1261",
       answer: 6,
     },
     {
-      code: "neutral2",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fnormal.png?alt=media",
+      code: "F1201",
       answer: 0,
     },
   ];
   const level3 = [
     {
-      code: "happy3",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fhappy.png?alt=media",
+      code: "F1112",
       answer: 1,
     },
     {
-      code: "surprise3",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fsurprise.png?alt=media",
+      code: "F1122",
       answer: 2,
     },
     {
-      code: "shyness3",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fshy.png?alt=media",
+      code: "F1132",
       answer: 3,
     },
     {
-      code: "anxious3",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fanxious.png?alt=media",
+      code: "F1142",
       answer: 4,
     },
     {
-      code: "sadness3",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fsad.png?alt=media",
+      code: "F1152",
       answer: 5,
     },
     {
-      code: "anger3",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fangry.png?alt=media",
+      code: "F1162",
       answer: 6,
     },
     {
-      code: "neutral3",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fnormal.png?alt=media",
+      code: "F1102",
       answer: 0,
     },
   ];
   const level4 = [
     {
-      code: "happy4",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fhappy.png?alt=media",
+      code: "F1212",
       answer: 1,
     },
     {
-      code: "surprise4",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fsurprise.png?alt=media",
+      code: "F1222",
       answer: 2,
     },
     {
-      code: "shyness4",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fshy.png?alt=media",
+      code: "F1232",
       answer: 3,
     },
     {
-      code: "anxious4",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fanxious.png?alt=media",
+      code: "F1242",
       answer: 4,
     },
     {
-      code: "sadness4",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fsad.png?alt=media",
+      code: "F1252",
       answer: 5,
     },
     {
-      code: "anger4",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fangry.png?alt=media",
+      code: "F1262",
       answer: 6,
     },
     {
-      code: "neutral4",
-      question: "https://firebasestorage.googleapis.com/v0/b/memo-59b8a.appspot.com/o/chapter1%2Fnormal.png?alt=media",
+      code: "F1202",
       answer: 0,
     },
   ];
