@@ -25,6 +25,31 @@ const SecondExpScreen = ({ navigation }) => {
   const questionsRef = useRef(null);
   const isPreRef = useRef(true);
 
+  const voices = {
+    P_3: require("../assets/voice/p3.wav"),
+    P_4: require("../assets/voice/p4.wav"),
+
+    V1111: require("../assets/voice/111.wav"),
+    V1141: require("../assets/voice/141.wav"),
+    V1151: require("../assets/voice/151.wav"),
+    V1161: require("../assets/voice/161.wav"),
+
+    V1211: require("../assets/voice/211.wav"),
+    V1241: require("../assets/voice/241.wav"),
+    V1251: require("../assets/voice/251.wav"),
+    V1261: require("../assets/voice/261.wav"),
+
+    V1112: require("../assets/voice/112.wav"),
+    V1142: require("../assets/voice/142.wav"),
+    V1152: require("../assets/voice/152.wav"),
+    V1162: require("../assets/voice/162.wav"),
+
+    V1212: require("../assets/voice/212.wav"),
+    V1242: require("../assets/voice/242.wav"),
+    V1252: require("../assets/voice/252.wav"),
+    V1262: require("../assets/voice/262.wav"),
+  };
+
   useEffect(() => {
     console.log(questions);
   }, [questions]);
@@ -134,7 +159,7 @@ const SecondExpScreen = ({ navigation }) => {
   };
   const playAudio = (audioFile, callback) => {
     try {
-      Audio.Sound.createAsync({ uri: audioFile }, { shouldPlay: true }).then(({ sound }) => {
+      Audio.Sound.createAsync(audioFile, { shouldPlay: true }).then(({ sound }) => {
         sound.setOnPlaybackStatusUpdate((status) => {
           if (status.didJustFinish) {
             console.log("finish");
@@ -160,7 +185,7 @@ const SecondExpScreen = ({ navigation }) => {
       setStatus("problem");
 
       const currentQuestion = questions[currentQuestionIndex];
-      const audioFile = currentQuestion.question;
+      const audioFile = voices[currentQuestion.code];
 
       playAudio(audioFile, () => {
         setTimeout(() => {

@@ -198,7 +198,7 @@ const FirstExpScreen = ({ navigation }) => {
             sendSolvedData(currentQuestionIndex, emotionKey, lastClickedButtonCountValue);
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
             setStatus("");
-          }, 2000);
+          }, 10000);
         }, 1000);
       }, 1000);
     }, 1000);
