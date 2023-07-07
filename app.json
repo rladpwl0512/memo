@@ -4,12 +4,12 @@
     "slug": "memo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon/speaker.png",
+    "image": "./assets/icon/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      // "image": "./assets/icon/speaker.png",
+      "image": "./assets/icon/logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#3FBA73"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -17,12 +17,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon/speaker.png",
+        "foregroundImage": "./assets/icon/logo.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/icon/speaker.png"
+      "favicon": "./assets/icon/logo.png"
     }
   }
 }

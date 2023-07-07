@@ -6,7 +6,6 @@ import global from "../styles/globalStyle";
 import { shuffleArray } from "../utils/utils";
 import { Entypo } from "@expo/vector-icons";
 import { UserContext } from "../contexts/UserContext";
-import colors from "../styles/theme";
 import GreenButton from "../components/GreenButton";
 
 const SecondExpScreen = ({ navigation }) => {
@@ -21,15 +20,6 @@ const SecondExpScreen = ({ navigation }) => {
   const countRef = useRef(0);
   const clickedButtonRef = useRef(null);
   const lastClickedButtonCountRef = useRef(null);
-  const soundRef = useRef(null);
-
-  // TODO: firebase에 저장?
-  const images = {
-    기쁨: require("../assets/emotions/happy.png"),
-    불안: require("../assets/emotions/anxious.png"),
-    슬픔: require("../assets/emotions/sadness.png"),
-    화남: require("../assets/emotions/anger.png"),
-  };
 
   useEffect(() => {
     console.log(questions);
@@ -171,47 +161,6 @@ const SecondExpScreen = ({ navigation }) => {
       });
     }, 1000);
   };
-
-  //   try {
-  //     const { sound } = await Audio.Sound.createAsync({ uri: audioFile }, { shouldPlay: true });
-
-  //     sound.setOnPlaybackStatusUpdate((status) => {
-  //       if (status.didJustFinish) {
-  //         console.log("finish");
-  //         // Playback finished
-  //         setStatus("blank");
-
-  //         setTimeout(() => {
-  //           setStatus("options");
-  //         }, 1000);
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.log("Failed to play the audio", error);
-  //   }
-  // };
-
-  // const showNextQuestion = () => {
-  //   setStatus("wait");
-
-  //   setTimeout(() => {
-  //     setStatus("problem");
-
-  //     const currentQuestion = questions[currentQuestionIndex];
-  //     const audioFile = currentQuestion.question;
-
-  //     playAudio(audioFile);
-
-  //     setTimeout(() => {
-  //       const clickedButtonValue = clickedButtonRef.current;
-  //       const emotionKey = getEmotionKey(clickedButtonValue);
-  //       const lastClickedButtonCountValue = lastClickedButtonCountRef.current;
-  //       sendSolvedData(currentQuestionIndex, emotionKey, lastClickedButtonCountValue);
-  //       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-  //       setStatus("");
-  //     }, 10000);
-  //   }, 1000);
-  // };
 
   return (
     currentQuestionIndex < questions.length && (
