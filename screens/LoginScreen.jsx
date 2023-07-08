@@ -115,7 +115,7 @@ function LoginScreen({ navigation }) {
       <CustomModal visible={isFormModalVisible} onClose={closeFormModal}>
         <View style={styles.modalContainer}>
           <Text style={[styles.modalTitle, global.title]}>잘못 입력하셨습니다</Text>
-          <Text style={[styles.modalContent, global.content]}>번호를 올바른 형식으로 입력해주세요. (예시: 01012345678)</Text>
+          <Text style={[styles.modalContent, global.content]}>번호를 올바른 형식으로 입력해주세요.{"\n"}(예시: 01012345678)</Text>
           <Pressable style={styles.modalButton} onPress={closeFormModal}>
             <Text style={[global.title, styles.modalButtonText]}>확인</Text>
           </Pressable>
@@ -125,7 +125,7 @@ function LoginScreen({ navigation }) {
       <CustomModal visible={isTwiceModalVisible} onClose={closeTwiceModal}>
         <View style={styles.modalContainer}>
           <Text style={[styles.modalTitle, global.title]}>이미 연구에 참여하셨습니다</Text>
-          <Text style={[styles.modalContent, global.content]}>두번 로그인할 수 없습니다. (문의: inyoung0727@swu.ac.kr)</Text>
+          <Text style={[styles.modalContent, global.content]}>두번 연구에 참여할 수 없습니다.{"\n"}(문의: inyoung0727@swu.ac.kr)</Text>
           <Pressable style={styles.modalButton} onPress={closeTwiceModal}>
             <Text style={[global.title, styles.modalButtonText]}>확인</Text>
           </Pressable>
