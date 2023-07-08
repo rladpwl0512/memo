@@ -10,7 +10,7 @@ import ExperimentDescriptionScreen from "./screens/ExperimentDescriptionScreen";
 import FirstExperimentDescriptionScreen from "./screens/FirstExperimentDescriptionScreen";
 import SecondExperimentDescriptionScreen from "./screens/SecondExperimentDescriptionScreen";
 import ThirdExperimentDescriptionScreen from "./screens/ThirdExperimentDescriptionScreen";
-import SoundCheckDescriptionScreen from "./screens/SoundCheckDescriptionScreen";
+import SoundCheckDescriptionScreen from "./components/SoundCheckDescription";
 import SoundCheckScreen from "./screens/SoundCheckScreen";
 import FinishScreen from "./screens/FinishScreen";
 import FirstExpScreen from "./screens/FirstExpScreen";
@@ -39,14 +39,13 @@ export default function App() {
           <Stack.Screen name="ResearchApprovement" component={ResearchApprovementScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="ExperimentDescription" component={ExperimentDescriptionScreen} />
+          <Stack.Screen name="SoundCheck" component={SoundCheckScreen} />
           <Stack.Screen name="FirstExperimentDescription" component={FirstExperimentDescriptionScreen} />
           <Stack.Screen name="SecondExperimentDescription" component={SecondExperimentDescriptionScreen} />
           <Stack.Screen name="ThirdExperimentDescription" component={ThirdExperimentDescriptionScreen} />
-          <Stack.Screen name="SoundCheckDescription" component={SoundCheckDescriptionScreen} />
           <Stack.Screen name="FirstExp" component={FirstExpScreen} />
           <Stack.Screen name="SecondExp" component={SecondExpScreen} />
           <Stack.Screen name="ThirdExp" component={ThirdExpScreen} />
-          <Stack.Screen name="SoundCheck" component={SoundCheckScreen} />
           <Stack.Screen name="Finish" component={FinishScreen} />
         </Stack.Navigator>
       </UserProvider>

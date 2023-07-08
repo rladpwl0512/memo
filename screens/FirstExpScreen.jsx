@@ -85,7 +85,7 @@ const FirstExpScreen = ({ navigation }) => {
     }
 
     if (currentQuestionIndex === questions.length) {
-      navigation.navigate("SecondExperimentDescription");
+      navigation.navigate("SoundCheck");
 
       return;
     }

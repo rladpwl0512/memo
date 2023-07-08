@@ -5,12 +5,14 @@ import global from "../styles/globalStyle";
 import CustomModal from "../components/CustomModal";
 import colors from "../styles/theme";
 import { Audio } from "expo-av";
+import SoundCheckDescription from "../components/SoundCheckDescription";
 
 function SoundCheckScreen({ navigation }) {
   const [sound, setSound] = useState();
   const [isWrongAnswerModalVisible, setIsWrongAnswerModalVisible] = useState(false);
   const [isListenModalVisible, setIsListenModalVisible] = useState(false);
   const [clickedButton, setClickedButton] = useState("");
+  const [isDescription, setIsDescription] = useState(true);
 
   async function handlePlayClick() {
     const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/car.wav"));
@@ -44,7 +46,13 @@ function SoundCheckScreen({ navigation }) {
     setClickedButton("");
   };
 
-  return (
+  const handleStartButtonClick = () => {
+    setIsDescription(false);
+  };
+
+  return isDescription ? (
+    <SoundCheckDescription message="두번째" onClickButton={handleStartButtonClick} />
+  ) : (
     <>
       <View style={[global.container, styles.container]}>
         <Pressable onPress={handlePlayClick}>
