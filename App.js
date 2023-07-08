@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { BackHandler } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AppLoading from "expo-app-loading"; //TODO: deprecated. expo-splash-screen 사용해서 변경하기
@@ -24,6 +25,14 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [isReadyFont, setIsReadyFont] = useState(false);
 
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
+      return true;
+    });
+
+    return () => backHandler.remove(); // Cleanup the event listener when component unmounts
+  }, []);
+
   const getFonts = async () => {
     await Font.loadAsync({
       heavy: require("./assets/fonts/suite_heavy.otf"),
@@ -35,7 +44,7 @@ export default function App() {
   return isReadyFont ? (
     <NavigationContainer>
       <UserProvider>
-        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="ResearchApprovement">
+        <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false }} initialRouteName="ResearchApprovement">
           <Stack.Screen name="ResearchApprovement" component={ResearchApprovementScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="ExperimentDescription" component={ExperimentDescriptionScreen} />
