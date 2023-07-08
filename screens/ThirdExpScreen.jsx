@@ -8,6 +8,7 @@ import { Entypo } from "@expo/vector-icons";
 import { UserContext } from "../contexts/UserContext";
 import colors from "../styles/theme";
 import Description from "../components/Description";
+import { images, voices } from "../utils/dataPath";
 
 const ThirdExpScreen = ({ navigation }) => {
   const { user } = useContext(UserContext);
@@ -23,15 +24,8 @@ const ThirdExpScreen = ({ navigation }) => {
   const clickedButtonRef = useRef(null);
   const lastClickedButtonCountRef = useRef(null);
   const questionsRef = useRef(null);
+  const preQuestionsRef = useRef(null);
   const isPreRef = useRef(true);
-
-  // TODO: firebase에 저장?
-  const images = {
-    기쁨: require("../assets/emotions/happy.png"),
-    불안: require("../assets/emotions/anxious.png"),
-    슬픔: require("../assets/emotions/sadness.png"),
-    화남: require("../assets/emotions/anger.png"),
-  };
 
   useEffect(() => {
     console.log(questions);
@@ -50,10 +44,11 @@ const ThirdExpScreen = ({ navigation }) => {
       const shuffledLevel32 = shuffleArray(exp3Data.level32);
       const shuffledLevel41 = shuffleArray(exp3Data.level41);
       const shuffledLevel42 = shuffleArray(exp3Data.level42);
-      const preQuestion = [...shuffledPre];
+      preQuestionsRef.current = [...shuffledPre];
       questionsRef.current = [...shuffledLevel11, ...shuffledLevel12, ...shuffledLevel21, ...shuffledLevel22, ...shuffledLevel31, ...shuffledLevel32, ...shuffledLevel41, ...shuffledLevel42];
 
-      setQuestions(preQuestion);
+      setEmotions(shuffleArray(preQuestionsRef.current[0].faceBtn));
+      setQuestions(preQuestionsRef.current);
     };
 
     getQuiz();
@@ -81,9 +76,11 @@ const ThirdExpScreen = ({ navigation }) => {
   }, [status]);
 
   useEffect(() => {
+    if (currentQuestionIndex === questions.length) return;
+
     countRef.current = 0;
     setClickedButton("");
-    setEmotions(shuffleArray(["기쁨", "불안", "슬픔", "화남"]));
+    questions.length && setEmotions(shuffleArray(questions[currentQuestionIndex].faceBtn));
   }, [currentQuestionIndex]);
 
   useEffect(() => {
@@ -138,21 +135,9 @@ const ThirdExpScreen = ({ navigation }) => {
       });
   };
 
-  const getEmotionKey = (clickedEmotion) => {
-    const emotion = {
-      1: "기쁨",
-      4: "불안",
-      5: "슬픔",
-      6: "화남",
-    };
-
-    const key = Object.keys(emotion).find((k) => emotion[k] === clickedEmotion);
-
-    return key ? parseInt(key) : null;
-  };
   const playAudio = (audioFile, callback) => {
     try {
-      Audio.Sound.createAsync({ uri: audioFile }, { shouldPlay: true }).then(({ sound }) => {
+      Audio.Sound.createAsync(audioFile, { shouldPlay: true }).then(({ sound }) => {
         sound.setOnPlaybackStatusUpdate((status) => {
           if (status.didJustFinish) {
             console.log("finish");
@@ -177,14 +162,13 @@ const ThirdExpScreen = ({ navigation }) => {
       setStatus("problem");
 
       const currentQuestion = questions[currentQuestionIndex];
-      const audioFile = currentQuestion.question;
+      const audioFile = voices[currentQuestion.voice];
 
       playAudio(audioFile, () => {
         setTimeout(() => {
           const clickedButtonValue = clickedButtonRef.current;
-          const emotionKey = getEmotionKey(clickedButtonValue);
           const lastClickedButtonCountValue = lastClickedButtonCountRef.current;
-          sendSolvedData(currentQuestionIndex, emotionKey, lastClickedButtonCountValue);
+          sendSolvedData(currentQuestionIndex, clickedButtonValue, lastClickedButtonCountValue);
           setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
           setStatus("");
         }, 10000);
@@ -204,7 +188,7 @@ const ThirdExpScreen = ({ navigation }) => {
           <View style={styles.optionButtons}>
             {emotions.map((emotion, index) => (
               <Pressable key={index} onPress={handleButtonClick(emotion)} style={({ pressed }) => [pressed && styles.pressed, clickedButton === emotion && styles.clickedContainer, styles.emotionButton]}>
-                <Image source={images[emotion]} style={[styles.emotionImg, clickedButton === emotion && styles.clickedImg]} />
+                <Image source={images[emotion]} style={[styles.emotionImg]} />
               </Pressable>
             ))}
           </View>
@@ -254,11 +238,8 @@ const styles = StyleSheet.create({
   },
 
   clickedContainer: {
-    backgroundColor: colors.BLACK,
-  },
-
-  clickedImg: {
-    opacity: 0.8,
+    backgroundColor: colors.PRIMARY_100,
+    borderRadius: 20,
   },
 });
 
