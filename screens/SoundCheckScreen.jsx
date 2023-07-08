@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useContext } from "react";
 import { View, Image, StyleSheet, Text, Pressable } from "react-native";
 import GreenButton from "../components/GreenButton";
 import global from "../styles/globalStyle";
@@ -6,13 +6,39 @@ import CustomModal from "../components/CustomModal";
 import colors from "../styles/theme";
 import { Audio } from "expo-av";
 import SoundCheckDescription from "../components/SoundCheckDescription";
+import { db, firebase } from "../firebase";
+import { UserContext } from "../contexts/UserContext";
 
+// 음성(답), navigation, text
 function SoundCheckScreen({ navigation }) {
+  const { user } = useContext(UserContext);
+
   const [sound, setSound] = useState();
   const [isWrongAnswerModalVisible, setIsWrongAnswerModalVisible] = useState(false);
   const [isListenModalVisible, setIsListenModalVisible] = useState(false);
   const [clickedButton, setClickedButton] = useState("");
   const [isDescription, setIsDescription] = useState(true);
+
+  const wrongNumberRef = useRef(0);
+
+  const sendSolvedData = () => {
+    const data = {
+      code: "pre2",
+      wrongNumber: wrongNumberRef.current,
+    };
+
+    db.collection("solve")
+      .doc(user)
+      .update({
+        soundCheck: firebase.firestore.FieldValue.arrayUnion(data),
+      })
+      .then(() => {
+        console.log("Test added to Firestore successfully.");
+      })
+      .catch((error) => {
+        console.log("Error adding test to Firestore:", error);
+      });
+  };
 
   async function handlePlayClick() {
     const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/car.wav"));
@@ -29,10 +55,12 @@ function SoundCheckScreen({ navigation }) {
 
     if (clickedButton !== "car") {
       sound.unloadAsync();
+      wrongNumberRef.current += 1;
       setIsWrongAnswerModalVisible(true);
       return;
     }
     sound.unloadAsync();
+    sendSolvedData();
     navigation.navigate("SecondExperimentDescription");
   };
 
