@@ -7,7 +7,7 @@
     "image": "./assets/icon/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/icon/logo_nobg.png",
+      "image": "./assets/icon/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#3FBA73"
     },
