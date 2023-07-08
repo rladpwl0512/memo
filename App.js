@@ -10,8 +10,8 @@ import ExperimentDescriptionScreen from "./screens/ExperimentDescriptionScreen";
 import FirstExperimentDescriptionScreen from "./screens/FirstExperimentDescriptionScreen";
 import SecondExperimentDescriptionScreen from "./screens/SecondExperimentDescriptionScreen";
 import ThirdExperimentDescriptionScreen from "./screens/ThirdExperimentDescriptionScreen";
-import SoundCheckDescriptionScreen from "./components/SoundCheckDescription";
-import SoundCheckScreen from "./screens/SoundCheckScreen";
+import SecondSoundCheckScreen from "./screens/SecondSoundCheckScreen";
+import ThirdSoundCheckScreen from "./screens/ThirdSoundCheckScreen";
 import FinishScreen from "./screens/FinishScreen";
 import FirstExpScreen from "./screens/FirstExpScreen";
 import SecondExpScreen from "./screens/SecondExpScreen";
@@ -35,11 +35,12 @@ export default function App() {
   return isReadyFont ? (
     <NavigationContainer>
       <UserProvider>
-        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Login">
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="ResearchApprovement">
           <Stack.Screen name="ResearchApprovement" component={ResearchApprovementScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="ExperimentDescription" component={ExperimentDescriptionScreen} />
-          <Stack.Screen name="SoundCheck" component={SoundCheckScreen} />
+          <Stack.Screen name="SecondSoundCheck" component={SecondSoundCheckScreen} />
+          <Stack.Screen name="ThirdSoundCheck" component={ThirdSoundCheckScreen} />
           <Stack.Screen name="FirstExperimentDescription" component={FirstExperimentDescriptionScreen} />
           <Stack.Screen name="SecondExperimentDescription" component={SecondExperimentDescriptionScreen} />
           <Stack.Screen name="ThirdExperimentDescription" component={ThirdExperimentDescriptionScreen} />

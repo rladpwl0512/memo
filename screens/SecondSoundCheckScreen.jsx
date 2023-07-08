@@ -9,8 +9,7 @@ import SoundCheckDescription from "../components/SoundCheckDescription";
 import { db, firebase } from "../firebase";
 import { UserContext } from "../contexts/UserContext";
 
-// 음성(답), navigation, text
-function SoundCheckScreen({ navigation }) {
+function SecondSoundCheckScreen({ navigation }) {
   const { user } = useContext(UserContext);
 
   const [sound, setSound] = useState();
@@ -41,7 +40,7 @@ function SoundCheckScreen({ navigation }) {
   };
 
   async function handlePlayClick() {
-    const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/car.wav"));
+    const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/cricket.m4a"));
     setSound(sound);
     await sound.playAsync();
   }
@@ -53,7 +52,7 @@ function SoundCheckScreen({ navigation }) {
       return;
     }
 
-    if (clickedButton !== "car") {
+    if (clickedButton !== "cricket") {
       sound.unloadAsync();
       wrongNumberRef.current += 1;
       setIsWrongAnswerModalVisible(true);
@@ -164,4 +163,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SoundCheckScreen;
+export default SecondSoundCheckScreen;
