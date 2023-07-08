@@ -5,6 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "image": "./assets/icon/logo.png",
+    "icon": "./assets/icon/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/icon/splash.png",
@@ -16,6 +17,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.memo.memo",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon/logo.png",
         "backgroundColor": "#ffffff"
@@ -23,6 +26,7 @@
     },
     "web": {
       "favicon": "./assets/icon/logo.png"
-    }
+    },
+    "platforms": ["ios", "android", "web"]
   }
 }
