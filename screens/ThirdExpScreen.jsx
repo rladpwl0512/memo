@@ -13,6 +13,7 @@ import { images, voices } from "../utils/dataPath";
 const ThirdExpScreen = ({ navigation }) => {
   const { user } = useContext(UserContext);
 
+  const [clickSound, setClickSound] = useState();
   const [clickedButton, setClickedButton] = useState("");
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -30,6 +31,25 @@ const ThirdExpScreen = ({ navigation }) => {
   useEffect(() => {
     console.log(questions);
   }, [questions]);
+
+  useEffect(() => {
+    const setupSound = async () => {
+      try {
+        const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/click.wav"), { shouldPlay: false });
+        setClickSound(sound);
+      } catch (error) {
+        console.log("Failed to load the sound", error);
+      }
+    };
+
+    setupSound();
+
+    return () => {
+      if (clickSound) {
+        clickSound.unloadAsync();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const getQuiz = async () => {
@@ -100,6 +120,20 @@ const ThirdExpScreen = ({ navigation }) => {
     }
     showNextQuestion();
   }, [currentQuestionIndex, questions]);
+
+  const playClickSound = async () => {
+    try {
+      if (clickSound) {
+        await clickSound.replayAsync();
+      }
+    } catch (error) {
+      console.log("Failed to play the sound", error);
+    }
+  };
+
+  const handlePressIn = () => {
+    playClickSound();
+  };
 
   const handleButtonClick = (emotion) => () => {
     setClickedButton(emotion);
@@ -187,7 +221,7 @@ const ThirdExpScreen = ({ navigation }) => {
         {status === "options" && (
           <View style={styles.optionButtons}>
             {emotions.map((emotion, index) => (
-              <Pressable key={index} onPress={handleButtonClick(emotion)} style={({ pressed }) => [pressed && styles.pressed, clickedButton === emotion && styles.clickedContainer, styles.emotionButton]}>
+              <Pressable key={index} onPressIn={handlePressIn} onPress={handleButtonClick(emotion)} style={({ pressed }) => [pressed && styles.pressed, clickedButton === emotion && styles.clickedContainer, styles.emotionButton]}>
                 <Image source={images[emotion]} style={[styles.emotionImg]} />
               </Pressable>
             ))}
