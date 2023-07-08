@@ -7,6 +7,7 @@ import GreenButton from "../components/GreenButton";
 import { Entypo } from "@expo/vector-icons";
 import { UserContext } from "../contexts/UserContext";
 import Description from "../components/Description";
+import { images } from "../utils/dataPath";
 
 const FirstExpScreen = ({ navigation }) => {
   const { user } = useContext(UserContext);
@@ -23,43 +24,6 @@ const FirstExpScreen = ({ navigation }) => {
   const lastClickedButtonCountRef = useRef(null);
   const questionsRef = useRef(null);
   const isPreRef = useRef(true);
-
-  const images = {
-    P_1: require("../assets/face/p1.png"),
-    P_2: require("../assets/face/p2.png"),
-
-    F1111: require("../assets/face/111.png"),
-    F1121: require("../assets/face/121.png"),
-    F1131: require("../assets/face/131.png"),
-    F1141: require("../assets/face/141.png"),
-    F1151: require("../assets/face/151.png"),
-    F1161: require("../assets/face/161.png"),
-    F1101: require("../assets/face/10.png"),
-
-    F1211: require("../assets/face/211.png"),
-    F1221: require("../assets/face/221.png"),
-    F1231: require("../assets/face/231.png"),
-    F1241: require("../assets/face/241.png"),
-    F1251: require("../assets/face/251.png"),
-    F1261: require("../assets/face/261.png"),
-    F1201: require("../assets/face/20.png"),
-
-    F1112: require("../assets/face/112.png"),
-    F1122: require("../assets/face/122.png"),
-    F1132: require("../assets/face/132.png"),
-    F1142: require("../assets/face/142.png"),
-    F1152: require("../assets/face/152.png"),
-    F1162: require("../assets/face/162.png"),
-    F1102: require("../assets/face/10.png"),
-
-    F1212: require("../assets/face/212.png"),
-    F1222: require("../assets/face/222.png"),
-    F1232: require("../assets/face/232.png"),
-    F1242: require("../assets/face/242.png"),
-    F1252: require("../assets/face/252.png"),
-    F1262: require("../assets/face/262.png"),
-    F1202: require("../assets/face/20.png"),
-  };
 
   useEffect(() => {
     console.log(questions);
@@ -210,7 +174,7 @@ const FirstExpScreen = ({ navigation }) => {
     currentQuestionIndex < questions.length && (
       <View style={[global.container, styles.container]}>
         {status === "wait" && <Entypo name="plus" size={80} color="black" />}
-        {status === "problem" && <Image style={styles.image} source={images[questions[currentQuestionIndex].code]} />}
+        {status === "problem" && <Image style={styles.image} source={images[questions[currentQuestionIndex].face]} />}
         {status === "blank" && <View></View>}
         {status === "options" && (
           <View style={styles.optionButtons}>
