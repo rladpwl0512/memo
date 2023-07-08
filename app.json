@@ -12,8 +12,12 @@
       "resizeMode": "contain",
       "backgroundColor": "#3FBA73"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
+      "bundleIdentifier": "com.memo.memo",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
@@ -27,6 +31,15 @@
     "web": {
       "favicon": "./assets/icon/logo.png"
     },
-    "platforms": ["ios", "android", "web"]
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f89ec9ef-9bba-4e34-8f16-e51fe58dbb24"
+      }
+    }
   }
 }

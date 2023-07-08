@@ -104,6 +104,7 @@ const ThirdExpScreen = ({ navigation }) => {
   }, [currentQuestionIndex]);
 
   useEffect(() => {
+    console.log(isPreRef.current, currentQuestionIndex, questions.length, status);
     if (questions.length === 0) return;
 
     if (isPreRef.current && currentQuestionIndex === questions.length) {
@@ -114,6 +115,7 @@ const ThirdExpScreen = ({ navigation }) => {
     }
 
     if (currentQuestionIndex === questions.length) {
+      console.log("끗!");
       navigation.navigate("Finish");
 
       return;
@@ -170,6 +172,7 @@ const ThirdExpScreen = ({ navigation }) => {
   };
 
   const playAudio = (audioFile, callback) => {
+    console.log("들어옴" + audioFile);
     try {
       Audio.Sound.createAsync(audioFile, { shouldPlay: true }).then(({ sound }) => {
         sound.setOnPlaybackStatusUpdate((status) => {
@@ -197,6 +200,10 @@ const ThirdExpScreen = ({ navigation }) => {
 
       const currentQuestion = questions[currentQuestionIndex];
       const audioFile = voices[currentQuestion.voice];
+
+      console.log(questions, questions[currentQuestionIndex], voices[currentQuestion.voice]);
+      console.log(audioFile, currentQuestion);
+      console.log("문제지점");
 
       playAudio(audioFile, () => {
         setTimeout(() => {
