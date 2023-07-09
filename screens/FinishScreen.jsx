@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import Description from "../components/Description";
 import LottieView from "lottie-react-native";
 
-function FinishScreen({ navigation }) {
+function ExperimentDescriptionScreen({ navigation }) {
   const handleButtonClick = () => {
     navigation.navigate("Login");
   };
@@ -12,8 +12,8 @@ function FinishScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   animation: {
-    width: 250,
+    width: 200,
   },
 });
 
-export default FinishScreen;
+export default ExperimentDescriptionScreen;

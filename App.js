@@ -4,6 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AppLoading from "expo-app-loading"; //TODO: deprecated. expo-splash-screen 사용해서 변경하기
 import * as Font from "expo-font";
+import { UserProvider } from "./contexts/UserContext";
+import { db } from "./firebase";
 
 import ResearchApprovementScreen from "./screens/ResearchApprovementScreen";
 import LoginScreen from "./screens/LoginScreen";
@@ -17,8 +19,6 @@ import FinishScreen from "./screens/FinishScreen";
 import FirstExpScreen from "./screens/FirstExpScreen";
 import SecondExpScreen from "./screens/SecondExpScreen";
 import ThirdExpScreen from "./screens/ThirdExpScreen";
-import { db } from "./firebase";
-import { UserProvider } from "./contexts/UserContext";
 
 const Stack = createNativeStackNavigator();
 
