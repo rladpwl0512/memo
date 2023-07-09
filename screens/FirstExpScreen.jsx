@@ -26,10 +26,6 @@ const FirstExpScreen = ({ navigation }) => {
   const isPreRef = useRef(true);
 
   useEffect(() => {
-    console.log(questions);
-  }, [questions]);
-
-  useEffect(() => {
     const getQuiz = async () => {
       const exp1Doc = await db.collection("exp").doc("exp1").get();
       const exp1Data = exp1Doc.data();

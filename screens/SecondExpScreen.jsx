@@ -27,10 +27,6 @@ const SecondExpScreen = ({ navigation }) => {
   const isPreRef = useRef(true);
 
   useEffect(() => {
-    console.log(questions);
-  }, [questions]);
-
-  useEffect(() => {
     const getQuiz = async () => {
       const exp2Doc = await db.collection("exp").doc("exp2").get();
       const exp2Data = exp2Doc.data();
@@ -140,7 +136,6 @@ const SecondExpScreen = ({ navigation }) => {
 
       sound.setOnPlaybackStatusUpdate((status) => {
         if (status.didJustFinish) {
-          console.log("finish");
           sound.unloadAsync().then(() => {
             console.log("Audio unloaded");
           });
@@ -166,10 +161,6 @@ const SecondExpScreen = ({ navigation }) => {
 
       const currentQuestion = questions[currentQuestionIndex];
       const audioFile = voices[currentQuestion.voice];
-
-      console.log(questions, questions[currentQuestionIndex], voices[currentQuestion.voice]);
-      console.log(audioFile, currentQuestion);
-      console.log("문제지점");
 
       playAudio(audioFile, () => {
         setTimeout(() => {

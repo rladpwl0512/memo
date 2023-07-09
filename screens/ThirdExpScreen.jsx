@@ -41,10 +41,6 @@ const ThirdExpScreen = ({ navigation }) => {
   const isPreRef = useRef(true);
 
   useEffect(() => {
-    console.log(questions);
-  }, [questions]);
-
-  useEffect(() => {
     const getQuiz = async () => {
       const exp3Doc = await db.collection("exp").doc("exp3").get();
       const exp3Data = exp3Doc.data();
@@ -108,7 +104,6 @@ const ThirdExpScreen = ({ navigation }) => {
     }
 
     if (currentQuestionIndex === questions.length) {
-      console.log("끗!");
       navigation.navigate("Finish");
 
       return;
@@ -170,7 +165,6 @@ const ThirdExpScreen = ({ navigation }) => {
 
       sound.setOnPlaybackStatusUpdate((status) => {
         if (status.didJustFinish) {
-          console.log("finish");
           sound.unloadAsync().then(() => {
             console.log("Audio unloaded");
           });
@@ -196,10 +190,6 @@ const ThirdExpScreen = ({ navigation }) => {
 
       const currentQuestion = questions[currentQuestionIndex];
       const audioFile = voices[currentQuestion.voice];
-
-      console.log(questions, questions[currentQuestionIndex], voices[currentQuestion.voice]);
-      console.log(audioFile, currentQuestion);
-      console.log("문제지점");
 
       playAudio(audioFile, () => {
         setTimeout(() => {
