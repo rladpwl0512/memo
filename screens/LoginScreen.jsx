@@ -94,7 +94,7 @@ function LoginScreen({ navigation }) {
 
         <View style={styles.inputContainer}>
           <Ionicons style={styles.icon} name="md-call" size={24} color={colors.GRAY_700} />
-          <TextInput value={inputText} onChangeText={handleInputChange} keyboardType="numeric" maxLength={11} placeholder="전화번호를 입력해주세요 (예: 01012345678)" placeholderTextColor={colors.GRAY_700} autoFocus />
+          <TextInput value={inputText} onChangeText={handleInputChange} keyboardType="numeric" maxLength={11} placeholder="(입력 예시) 01012345678" placeholderTextColor={colors.GRAY_700} autoFocus />
         </View>
 
         <GreenButton text="확인" width="100%" onClick={handleButtonClick} />
