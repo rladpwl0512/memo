@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BackHandler } from "react-native";
+import { BackHandler, ToastAndroid } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AppLoading from "expo-app-loading"; //TODO: deprecated. expo-splash-screen 사용해서 변경하기
@@ -26,11 +26,16 @@ export default function App() {
   const [isReadyFont, setIsReadyFont] = useState(false);
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
-      return true;
-    });
+    const backAction = () => {
+      ToastAndroid.show("테스트 도중, 뒤로가기 할 수 없습니다.", ToastAndroid.SHORT);
+      return true; // Return true to prevent default back button behavior
+    };
 
-    return () => backHandler.remove(); // Cleanup the event listener when component unmounts
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+
+    return () => {
+      backHandler.remove(); // Cleanup the event listener when component unmounts
+    };
   }, []);
 
   const getFonts = async () => {
