@@ -85,6 +85,7 @@ function SecondSoundCheckScreen({ navigation }) {
         <Pressable onPress={handlePlayClick}>
           <Image style={styles.icon} source={require("../assets/icon/speaker.png")} />
         </Pressable>
+        <Text style={global.content}>스피커를 클릭하여 소리를 재생하세요</Text>
         <View style={styles.buttonContainer}>
           <GreenButton text="귀뚜라미" width="40%" onClick={handleButtonClick("cricket")} clicked={clickedButton === "cricket"} />
           <GreenButton text="닭" width="40%" onClick={handleButtonClick("chicken")} clicked={clickedButton === "chicken"} />
