@@ -164,23 +164,24 @@ const ThirdExpScreen = ({ navigation }) => {
       });
   };
 
-  const playAudio = (audioFile, callback) => {
-    console.log("들어옴" + audioFile);
+  const playAudio = async (audioFile, callback) => {
     try {
-      Audio.Sound.createAsync(audioFile, { shouldPlay: true }).then(({ sound }) => {
-        console.log(audioFile);
+      const { sound } = await Audio.Sound.createAsync(audioFile, { shouldPlay: true });
 
-        sound.setOnPlaybackStatusUpdate((status) => {
-          if (status.didJustFinish) {
-            console.log("finish");
-            setStatus("blank");
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          console.log("finish");
+          sound.unloadAsync().then(() => {
+            console.log("Audio unloaded");
+          });
 
-            setTimeout(() => {
-              setStatus("options");
-              callback();
-            }, 1000);
-          }
-        });
+          setStatus("blank");
+
+          setTimeout(() => {
+            setStatus("options");
+            callback();
+          }, 1000);
+        }
       });
     } catch (error) {
       console.log("Failed to play the audio", error);

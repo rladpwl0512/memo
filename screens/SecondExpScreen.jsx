@@ -133,23 +133,25 @@ const SecondExpScreen = ({ navigation }) => {
 
     return key ? parseInt(key) : null;
   };
-  const playAudio = (audioFile, callback) => {
-    console.log("들어옴" + audioFile);
-    try {
-      Audio.Sound.createAsync(audioFile, { shouldPlay: true }).then(({ sound }) => {
-        console.log(audioFile);
-        sound.setOnPlaybackStatusUpdate((status) => {
-          if (status.didJustFinish) {
-            console.log("finish");
-            // Playback finished
-            setStatus("blank");
 
-            setTimeout(() => {
-              setStatus("options");
-              callback();
-            }, 1000);
-          }
-        });
+  const playAudio = async (audioFile, callback) => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(audioFile, { shouldPlay: true });
+
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          console.log("finish");
+          sound.unloadAsync().then(() => {
+            console.log("Audio unloaded");
+          });
+
+          setStatus("blank");
+
+          setTimeout(() => {
+            setStatus("options");
+            callback();
+          }, 1000);
+        }
       });
     } catch (error) {
       console.log("Failed to play the audio", error);
