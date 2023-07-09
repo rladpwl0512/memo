@@ -1,33 +1,22 @@
-import { useEffect, useState } from "react";
 import global from "../styles/globalStyle";
 import colors from "../styles/theme";
 import { Pressable, StyleSheet, Text } from "react-native";
 import { Audio } from "expo-av";
 
-// 클릭하면 크기가 작아졌다 커지고 + 색이 더 어둡게 변함
-// 클릭이 된 버튼은 색을 유지한다.
+let clickSound = null;
+
+const setupSound = async () => {
+  try {
+    const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/click.mp3"), { shouldPlay: false });
+    clickSound = sound;
+  } catch (error) {
+    console.log("Failed to load the sound", error);
+  }
+};
+
+setupSound();
+
 function GreenButton({ text, width, onClick, clicked = false }) {
-  const [clickSound, setClickSound] = useState();
-
-  useEffect(() => {
-    const setupSound = async () => {
-      try {
-        const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/click.mp3"), { shouldPlay: false });
-        setClickSound(sound);
-      } catch (error) {
-        console.log("Failed to load the sound", error);
-      }
-    };
-
-    setupSound();
-
-    return () => {
-      if (clickSound) {
-        clickSound.unloadAsync();
-      }
-    };
-  }, []);
-
   const playClickSound = async () => {
     try {
       if (clickSound) {

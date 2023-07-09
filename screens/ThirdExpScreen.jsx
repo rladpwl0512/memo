@@ -10,10 +10,22 @@ import colors from "../styles/theme";
 import Description from "../components/Description";
 import { images, voices } from "../utils/dataPath";
 
+let clickSound = null;
+
+const setupSound = async () => {
+  try {
+    const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/click.mp3"), { shouldPlay: false });
+    clickSound = sound;
+  } catch (error) {
+    console.log("Failed to load the sound", error);
+  }
+};
+
+setupSound();
+
 const ThirdExpScreen = ({ navigation }) => {
   const { user } = useContext(UserContext);
 
-  const [clickSound, setClickSound] = useState();
   const [clickedButton, setClickedButton] = useState("");
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -31,25 +43,6 @@ const ThirdExpScreen = ({ navigation }) => {
   useEffect(() => {
     console.log(questions);
   }, [questions]);
-
-  useEffect(() => {
-    const setupSound = async () => {
-      try {
-        const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/click.mp3"), { shouldPlay: false });
-        setClickSound(sound);
-      } catch (error) {
-        console.log("Failed to load the sound", error);
-      }
-    };
-
-    setupSound();
-
-    return () => {
-      if (clickSound) {
-        clickSound.unloadAsync();
-      }
-    };
-  }, []);
 
   useEffect(() => {
     const getQuiz = async () => {
