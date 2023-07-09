@@ -82,7 +82,7 @@ function ThirdSoundCheckScreen({ navigation }) {
   ) : (
     <>
       <View style={[global.container, styles.container]}>
-        <Pressable onPress={handlePlayClick}>
+        <Pressable onPress={handlePlayClick} style={({ pressed }) => pressed && styles.pressed}>
           <Image style={styles.icon} source={require("../assets/icon/speaker.png")} />
         </Pressable>
         <Text style={global.content}>스피커를 클릭하여 소리를 재생하세요</Text>
@@ -161,6 +161,11 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
     gap: 15,
+  },
+
+  pressed: {
+    transform: [{ scale: 0.9 }],
+    opacity: 0.5,
   },
 });
 
