@@ -134,8 +134,10 @@ const SecondExpScreen = ({ navigation }) => {
     return key ? parseInt(key) : null;
   };
   const playAudio = (audioFile, callback) => {
+    console.log("들어옴" + audioFile);
     try {
       Audio.Sound.createAsync(audioFile, { shouldPlay: true }).then(({ sound }) => {
+        console.log(audioFile);
         sound.setOnPlaybackStatusUpdate((status) => {
           if (status.didJustFinish) {
             console.log("finish");
@@ -162,6 +164,10 @@ const SecondExpScreen = ({ navigation }) => {
 
       const currentQuestion = questions[currentQuestionIndex];
       const audioFile = voices[currentQuestion.voice];
+
+      console.log(questions, questions[currentQuestionIndex], voices[currentQuestion.voice]);
+      console.log(audioFile, currentQuestion);
+      console.log("문제지점");
 
       playAudio(audioFile, () => {
         setTimeout(() => {

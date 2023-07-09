@@ -40,7 +40,7 @@ function ThirdSoundCheckScreen({ navigation }) {
   };
 
   async function handlePlayClick() {
-    const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/car.wav"));
+    const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/car.mp3"));
     setSound(sound);
     await sound.playAsync();
   }

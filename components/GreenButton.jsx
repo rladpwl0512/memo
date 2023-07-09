@@ -12,7 +12,7 @@ function GreenButton({ text, width, onClick, clicked = false }) {
   useEffect(() => {
     const setupSound = async () => {
       try {
-        const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/click.wav"), { shouldPlay: false });
+        const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/click.mp3"), { shouldPlay: false });
         setClickSound(sound);
       } catch (error) {
         console.log("Failed to load the sound", error);

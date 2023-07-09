@@ -40,7 +40,7 @@ function SecondSoundCheckScreen({ navigation }) {
   };
 
   async function handlePlayClick() {
-    const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/cricket.m4a"));
+    const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/cricket.mp3"));
     setSound(sound);
     await sound.playAsync();
   }
