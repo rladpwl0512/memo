@@ -4,7 +4,6 @@ import Description from "../components/Description";
 import LottieView from "lottie-react-native";
 import disableBack from "../utils/disableBack";
 
-
 function ExperimentDescriptionScreen({ navigation }) {
   useEffect(() => {
     disableBack();

@@ -237,7 +237,7 @@ const ThirdExpScreen = ({ navigation }) => {
         {status === "options" && (
           <View style={styles.optionButtons}>
             {emotions.map((emotion, index) => (
-              <Pressable key={index} onPressIn={handlePressIn} onPress={handleButtonClick(emotion)} style={({ pressed }) => [pressed && styles.pressed, clickedButton === emotion && styles.clickedContainer, styles.emotionButton]}>
+              <Pressable key={index} onPressIn={handlePressIn} onPress={handleButtonClick(emotion)} style={({ pressed }) => [pressed && styles.pressed, clickedButton === emotion && styles.clickedContainer, styles.emotionButton]} disabled={clickedButton !== "" && clickedButton !== emotion}>
                 <Image source={images[emotion]} style={[styles.emotionImg]} />
               </Pressable>
             ))}

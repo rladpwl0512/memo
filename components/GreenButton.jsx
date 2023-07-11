@@ -16,7 +16,7 @@ const setupSound = async () => {
 
 setupSound();
 
-function GreenButton({ text, width, onClick, clicked = false }) {
+function GreenButton({ text, width, onClick, clicked = false, isDisabled }) {
   const playClickSound = async () => {
     try {
       if (clickSound) {
@@ -32,7 +32,7 @@ function GreenButton({ text, width, onClick, clicked = false }) {
   };
 
   return (
-    <Pressable onPressIn={handlePressIn} style={({ pressed }) => [styles.button, { width }, styles.filled, pressed && styles.pressed, clicked && styles.clicked]} onPress={onClick}>
+    <Pressable onPressIn={handlePressIn} style={({ pressed }) => [styles.button, { width }, styles.filled, pressed && styles.pressed, clicked && styles.clicked]} onPress={onClick} disabled={isDisabled}>
       <Text style={[global.button, styles.filledText]}>{text}</Text>
     </Pressable>
   );

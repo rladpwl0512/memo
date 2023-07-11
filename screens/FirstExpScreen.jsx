@@ -199,7 +199,7 @@ const FirstExpScreen = ({ navigation }) => {
         {status === "options" && (
           <View style={styles.optionButtons}>
             {emotions.map((emotion, index) => (
-              <GreenButton key={index} text={emotion} width="40%" onClick={handleButtonClick(emotion)} clicked={clickedButton === emotion} />
+              <GreenButton key={index} text={emotion} width="40%" onClick={handleButtonClick(emotion)} clicked={clickedButton === emotion} isDisabled={clickedButton !== "" && clickedButton !== emotion} />
             ))}
           </View>
         )}
