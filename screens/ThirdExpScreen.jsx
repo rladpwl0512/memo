@@ -280,6 +280,7 @@ const styles = StyleSheet.create({
   emotionImg: {
     width: "100%",
     height: "100%",
+    objectFit: "contain",
   },
 
   pressed: {
