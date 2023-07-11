@@ -1,14 +1,14 @@
 export const images = {
-  11: require("../assets/face/111.png"),
-  14: require("../assets/face/141.png"),
-  15: require("../assets/face/151.png"),
+  11: require("../assets/face/11.png"),
+  14: require("../assets/face/14.png"),
+  15: require("../assets/face/15.png"),
   16: require("../assets/face/16.png"),
 
-  21: require("../assets/face/211.png"),
+  21: require("../assets/face/21.png"),
   22: require("../assets/face/22.png"),
-  24: require("../assets/face/241.png"),
-  25: require("../assets/face/251.png"),
-  26: require("../assets/face/261.png"),
+  24: require("../assets/face/24.png"),
+  25: require("../assets/face/25.png"),
+  26: require("../assets/face/26.png"),
 
   10: require("../assets/face/10.png"),
   20: require("../assets/face/20.png"),
