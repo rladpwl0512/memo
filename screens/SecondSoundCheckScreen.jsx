@@ -20,6 +20,7 @@ function SecondSoundCheckScreen({ navigation }) {
   const [isDescription, setIsDescription] = useState(true);
 
   const wrongNumberRef = useRef(0);
+  const isSoundRef = useRef(false);
 
   useEffect(() => {
     disableBack();
@@ -45,8 +46,13 @@ function SecondSoundCheckScreen({ navigation }) {
   };
 
   async function handlePlayClick() {
+    if (isSoundRef.current) {
+      return;
+    }
+
     const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/cricket.mp3"));
     setSound(sound);
+    isSoundRef.current = true;
     await sound.playAsync();
   }
 
@@ -60,11 +66,13 @@ function SecondSoundCheckScreen({ navigation }) {
     if (clickedButton !== "cricket") {
       sound.unloadAsync();
       wrongNumberRef.current += 1;
+      isSoundRef.current = false;
       setIsWrongAnswerModalVisible(true);
       return;
     }
     sound.unloadAsync();
     sendSolvedData();
+    isSoundRef.current = false;
     navigation.navigate("SecondExperimentDescription");
   };
 

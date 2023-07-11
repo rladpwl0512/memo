@@ -20,6 +20,7 @@ function ThirdSoundCheckScreen({ navigation }) {
   const [isDescription, setIsDescription] = useState(true);
 
   const wrongNumberRef = useRef(0);
+  const isSoundRef = useRef(false);
 
   useEffect(() => {
     disableBack();
@@ -44,11 +45,17 @@ function ThirdSoundCheckScreen({ navigation }) {
       });
   };
 
-  async function handlePlayClick() {
+  const handlePlayClick = async () => {
+    if (isSoundRef.current) {
+      console.log("hi");
+      return;
+    }
+
     const { sound } = await Audio.Sound.createAsync(require("../assets/sounds/car.mp3"));
     setSound(sound);
+    isSoundRef.current = true;
     await sound.playAsync();
-  }
+  };
 
   const handleButtonClick = (clickedButton) => () => {
     setClickedButton(clickedButton);
@@ -60,11 +67,13 @@ function ThirdSoundCheckScreen({ navigation }) {
     if (clickedButton !== "car") {
       sound.unloadAsync();
       wrongNumberRef.current += 1;
+      isSoundRef.current = false;
       setIsWrongAnswerModalVisible(true);
       return;
     }
     sound.unloadAsync();
     sendSolvedData();
+    isSoundRef.current = false;
     navigation.navigate("ThirdExperimentDescription");
   };
 
