@@ -80,7 +80,6 @@ const SecondExpScreen = ({ navigation }) => {
       intervalRef.current = setInterval(() => {
         countRef.current = count;
         count++;
-        console.log(countRef.current);
 
         if (count > 10) {
           clearInterval(intervalRef.current);

@@ -79,8 +79,6 @@ const FirstExpScreen = ({ navigation }) => {
       intervalRef.current = setInterval(() => {
         countRef.current = count;
         count++;
-        console.log(countRef.current);
-        // 10초 이전에 clear 되었을 때도 clear 해야함
         if (count > 10) {
           clearInterval(intervalRef.current);
         }
