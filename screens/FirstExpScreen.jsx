@@ -25,6 +25,8 @@ const FirstExpScreen = ({ navigation }) => {
   const lastClickedButtonCountRef = useRef(null);
   const questionsRef = useRef(null);
   const isPreRef = useRef(true);
+  const intervalRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
     disableBack();
@@ -49,6 +51,22 @@ const FirstExpScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
+    if (status === "options" && clickedButton) {
+      clearTimeout(timeoutRef.current);
+      clearInterval(intervalRef.current);
+
+      setTimeout(() => {
+        const clickedButtonValue = clickedButtonRef.current;
+        const emotionKey = getEmotionKey(clickedButtonValue);
+        const lastClickedButtonCountValue = lastClickedButtonCountRef.current;
+        sendSolvedData(currentQuestionIndex, emotionKey, lastClickedButtonCountValue);
+        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        setStatus("");
+      }, 1000);
+    }
+  }, [clickedButton]);
+
+  useEffect(() => {
     clickedButtonRef.current = clickedButton;
     lastClickedButtonCountRef.current = countRef.current;
   }, [clickedButton]);
@@ -58,12 +76,13 @@ const FirstExpScreen = ({ navigation }) => {
       let count = 1;
       countRef.current = 0; // TODO: refactor
 
-      const interval = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         countRef.current = count;
         count++;
-
+        console.log(countRef.current);
+        // 10초 이전에 clear 되었을 때도 clear 해야함
         if (count > 10) {
-          clearInterval(interval);
+          clearInterval(intervalRef.current);
         }
       }, 1000);
     }
@@ -156,7 +175,7 @@ const FirstExpScreen = ({ navigation }) => {
         setTimeout(() => {
           setStatus("options");
 
-          setTimeout(() => {
+          timeoutRef.current = setTimeout(() => {
             const clickedButtonValue = clickedButtonRef.current;
             const emotionKey = getEmotionKey(clickedButtonValue);
             const lastClickedButtonCountValue = lastClickedButtonCountRef.current;

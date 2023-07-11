@@ -26,6 +26,8 @@ const SecondExpScreen = ({ navigation }) => {
   const lastClickedButtonCountRef = useRef(null);
   const questionsRef = useRef(null);
   const isPreRef = useRef(true);
+  const intervalRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
     disableBack();
@@ -50,6 +52,22 @@ const SecondExpScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
+    if (status === "options" && clickedButton) {
+      clearTimeout(timeoutRef.current);
+      clearInterval(intervalRef.current);
+
+      setTimeout(() => {
+        const clickedButtonValue = clickedButtonRef.current;
+        const emotionKey = getEmotionKey(clickedButtonValue);
+        const lastClickedButtonCountValue = lastClickedButtonCountRef.current;
+        sendSolvedData(currentQuestionIndex, emotionKey, lastClickedButtonCountValue);
+        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        setStatus("");
+      }, 1000);
+    }
+  }, [clickedButton]);
+
+  useEffect(() => {
     clickedButtonRef.current = clickedButton;
     lastClickedButtonCountRef.current = countRef.current;
   }, [clickedButton]);
@@ -59,12 +77,13 @@ const SecondExpScreen = ({ navigation }) => {
       let count = 1;
       countRef.current = 0; // TODO: refactor
 
-      const interval = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         countRef.current = count;
         count++;
+        console.log(countRef.current);
 
         if (count > 10) {
-          clearInterval(interval);
+          clearInterval(intervalRef.current);
         }
       }, 1000);
     }
@@ -168,7 +187,7 @@ const SecondExpScreen = ({ navigation }) => {
       const audioFile = voices[currentQuestion.voice];
 
       playAudio(audioFile, () => {
-        setTimeout(() => {
+        timeoutRef.current = setTimeout(() => {
           const clickedButtonValue = clickedButtonRef.current;
           const emotionKey = getEmotionKey(clickedButtonValue);
           const lastClickedButtonCountValue = lastClickedButtonCountRef.current;

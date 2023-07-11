@@ -40,6 +40,8 @@ const ThirdExpScreen = ({ navigation }) => {
   const questionsRef = useRef(null);
   const preQuestionsRef = useRef(null);
   const isPreRef = useRef(true);
+  const intervalRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
     disableBack();
@@ -69,6 +71,21 @@ const ThirdExpScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
+    if (status === "options" && clickedButton) {
+      clearTimeout(timeoutRef.current);
+      clearInterval(intervalRef.current);
+
+      setTimeout(() => {
+        const clickedButtonValue = clickedButtonRef.current;
+        const lastClickedButtonCountValue = lastClickedButtonCountRef.current;
+        sendSolvedData(currentQuestionIndex, clickedButtonValue, lastClickedButtonCountValue);
+        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        setStatus("");
+      }, 1000);
+    }
+  }, [clickedButton]);
+
+  useEffect(() => {
     clickedButtonRef.current = clickedButton;
     lastClickedButtonCountRef.current = countRef.current;
   }, [clickedButton]);
@@ -78,12 +95,13 @@ const ThirdExpScreen = ({ navigation }) => {
       let count = 1;
       countRef.current = 0; // TODO: refactor
 
-      const interval = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         countRef.current = count;
         count++;
+        console.log(countRef.current);
 
         if (count > 10) {
-          clearInterval(interval);
+          clearInterval(intervalRef.current);
         }
       }, 1000);
     }
@@ -197,7 +215,7 @@ const ThirdExpScreen = ({ navigation }) => {
       const audioFile = voices[currentQuestion.voice];
 
       playAudio(audioFile, () => {
-        setTimeout(() => {
+        timeoutRef.current = setTimeout(() => {
           const clickedButtonValue = clickedButtonRef.current;
           const lastClickedButtonCountValue = lastClickedButtonCountRef.current;
           sendSolvedData(currentQuestionIndex, clickedButtonValue, lastClickedButtonCountValue);
