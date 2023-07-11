@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { BackHandler, ToastAndroid } from "react-native";
+import { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AppLoading from "expo-app-loading"; //TODO: deprecated. expo-splash-screen 사용해서 변경하기
@@ -24,7 +23,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [isReadyFont, setIsReadyFont] = useState(false);
-  
+
   const getFonts = async () => {
     await Font.loadAsync({
       heavy: require("./assets/fonts/suite_heavy.otf"),
