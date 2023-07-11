@@ -24,12 +24,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [isReadyFont, setIsReadyFont] = useState(false);
-
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener("hardwareBackPress", () => true);
-    return () => backHandler.remove();
-  }, []);
-
+  
   const getFonts = async () => {
     await Font.loadAsync({
       heavy: require("./assets/fonts/suite_heavy.otf"),

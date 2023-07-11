@@ -1,4 +1,4 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { View, Image, StyleSheet, Text, Pressable } from "react-native";
 import GreenButton from "../components/GreenButton";
 import global from "../styles/globalStyle";
@@ -8,6 +8,7 @@ import { Audio } from "expo-av";
 import SoundCheckDescription from "../components/SoundCheckDescription";
 import { db, firebase } from "../firebase";
 import { UserContext } from "../contexts/UserContext";
+import disableBack from "../utils/disableBack";
 
 function SecondSoundCheckScreen({ navigation }) {
   const { user } = useContext(UserContext);
@@ -19,6 +20,10 @@ function SecondSoundCheckScreen({ navigation }) {
   const [isDescription, setIsDescription] = useState(true);
 
   const wrongNumberRef = useRef(0);
+
+  useEffect(() => {
+    disableBack();
+  }, []);
 
   const sendSolvedData = () => {
     const data = {

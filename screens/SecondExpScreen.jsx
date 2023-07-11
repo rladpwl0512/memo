@@ -9,6 +9,7 @@ import { UserContext } from "../contexts/UserContext";
 import GreenButton from "../components/GreenButton";
 import Description from "../components/Description";
 import { voices } from "../utils/dataPath";
+import disableBack from "../utils/disableBack";
 
 const SecondExpScreen = ({ navigation }) => {
   const { user } = useContext(UserContext);
@@ -25,6 +26,10 @@ const SecondExpScreen = ({ navigation }) => {
   const lastClickedButtonCountRef = useRef(null);
   const questionsRef = useRef(null);
   const isPreRef = useRef(true);
+
+  useEffect(() => {
+    disableBack();
+  }, []);
 
   useEffect(() => {
     const getQuiz = async () => {

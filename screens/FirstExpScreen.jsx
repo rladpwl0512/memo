@@ -8,6 +8,7 @@ import { Entypo } from "@expo/vector-icons";
 import { UserContext } from "../contexts/UserContext";
 import Description from "../components/Description";
 import { images } from "../utils/dataPath";
+import disableBack from "../utils/disableBack";
 
 const FirstExpScreen = ({ navigation }) => {
   const { user } = useContext(UserContext);
@@ -24,6 +25,10 @@ const FirstExpScreen = ({ navigation }) => {
   const lastClickedButtonCountRef = useRef(null);
   const questionsRef = useRef(null);
   const isPreRef = useRef(true);
+
+  useEffect(() => {
+    disableBack();
+  }, []);
 
   useEffect(() => {
     const getQuiz = async () => {

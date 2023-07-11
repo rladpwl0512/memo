@@ -1,8 +1,15 @@
+import { useEffect } from "react";
 import { StyleSheet } from "react-native";
 import Description from "../components/Description";
 import LottieView from "lottie-react-native";
+import disableBack from "../utils/disableBack";
+
 
 function ExperimentDescriptionScreen({ navigation }) {
+  useEffect(() => {
+    disableBack();
+  }, []);
+
   const handleButtonClick = () => {
     navigation.navigate("FirstExperimentDescription");
   };

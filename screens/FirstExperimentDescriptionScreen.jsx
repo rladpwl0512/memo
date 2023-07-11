@@ -1,7 +1,13 @@
+import { useEffect } from "react";
 import { StyleSheet, Image } from "react-native";
 import Description from "../components/Description";
+import disableBack from "../utils/disableBack";
 
 function FirstExperimentDescriptionScreen({ navigation }) {
+  useEffect(() => {
+    disableBack();
+  }, []);
+
   const handleButtonClick = () => {
     navigation.navigate("FirstExp");
   };

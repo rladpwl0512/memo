@@ -9,6 +9,7 @@ import { UserContext } from "../contexts/UserContext";
 import colors from "../styles/theme";
 import Description from "../components/Description";
 import { images, voices } from "../utils/dataPath";
+import disableBack from "../utils/disableBack";
 
 let clickSound = null;
 
@@ -39,6 +40,10 @@ const ThirdExpScreen = ({ navigation }) => {
   const questionsRef = useRef(null);
   const preQuestionsRef = useRef(null);
   const isPreRef = useRef(true);
+
+  useEffect(() => {
+    disableBack();
+  }, []);
 
   useEffect(() => {
     const getQuiz = async () => {

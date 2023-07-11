@@ -1,8 +1,14 @@
+import { useEffect } from "react";
 import { StyleSheet } from "react-native";
 import Description from "../components/Description";
 import LottieView from "lottie-react-native";
+import disableBack from "../utils/disableBack";
 
-function ExperimentDescriptionScreen({ navigation }) {
+function FinishScreen({ navigation }) {
+  useEffect(() => {
+    disableBack();
+  }, []);
+
   const handleButtonClick = () => {
     navigation.navigate("Login");
   };
@@ -16,4 +22,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ExperimentDescriptionScreen;
+export default FinishScreen;
