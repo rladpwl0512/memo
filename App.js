@@ -26,16 +26,8 @@ export default function App() {
   const [isReadyFont, setIsReadyFont] = useState(false);
 
   useEffect(() => {
-    const backAction = () => {
-      ToastAndroid.show("테스트 도중, 뒤로가기 할 수 없습니다.", ToastAndroid.SHORT);
-      return true; // Return true to prevent default back button behavior
-    };
-
-    const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
-
-    return () => {
-      backHandler.remove(); // Cleanup the event listener when component unmounts
-    };
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", () => true);
+    return () => backHandler.remove();
   }, []);
 
   const getFonts = async () => {
