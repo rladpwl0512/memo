@@ -4,17 +4,15 @@
     "slug": "memo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "image": "./assets/icon/logo.png",
-    "icon": "./assets/icon/logo.png",
+    "image": "./assets/icon/new_logo.png",
+    "icon": "./assets/icon/new_logo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/icon/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#3FBA73"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.memo.memo",
       "buildNumber": "1.0.0",
@@ -24,18 +22,14 @@
       "package": "com.memo.memo",
       "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon/logo.png",
+        "foregroundImage": "./assets/icon/new_logo.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/icon/logo.png"
+      "favicon": "./assets/icon/new_logo.png"
     },
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "extra": {
       "eas": {
         "projectId": "f89ec9ef-9bba-4e34-8f16-e51fe58dbb24"
