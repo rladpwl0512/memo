@@ -7,7 +7,7 @@ function WifiGuideScreen({ navigation }) {
     navigation.navigate("Login");
   };
 
-  return <Description image={<LottieView style={styles.animation} source={require("../assets/animation/wifi.json")} autoPlay loop />} titleText="와이파이 혹은 데이터를 연결해주세요" contentText={`와이파이 혹은 모바일 데이터 연결 상태가 아닌 경우,\n데이터가 저장되지 않습니다.\n\n안정적인 연결 상황 유지부탁드립니다.`} handleButtonClick={handleButtonClick} buttonText="확인" />;
+  return <Description image={<LottieView style={styles.animation} source={require("../assets/animation/wifi.json")} autoPlay loop />} titleText="와이파이 혹은 데이터를 연결해주세요" contentText={`와이파이 혹은 모바일 데이터 연결 상태가 아닌 경우,\n데이터가 저장되지 않습니다.\n\n실험이 끝날 때 까지\n안정적인 연결 상황 유지 부탁드립니다.`} handleButtonClick={handleButtonClick} buttonText="확인" />;
 }
 
 const styles = StyleSheet.create({
