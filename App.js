@@ -7,6 +7,7 @@ import { UserProvider } from "./contexts/UserContext";
 import { db } from "./firebase";
 
 import ResearchApprovementScreen from "./screens/ResearchApprovementScreen";
+import WifiGuideScreen from "./screens/WifiGuideScreen";
 import LoginScreen from "./screens/LoginScreen";
 import ExperimentDescriptionScreen from "./screens/ExperimentDescriptionScreen";
 import FirstExperimentDescriptionScreen from "./screens/FirstExperimentDescriptionScreen";
@@ -37,6 +38,7 @@ export default function App() {
       <UserProvider>
         <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false }} initialRouteName="ResearchApprovement">
           <Stack.Screen name="ResearchApprovement" component={ResearchApprovementScreen} />
+          <Stack.Screen name="WifiGuide" component={WifiGuideScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="ExperimentDescription" component={ExperimentDescriptionScreen} />
           <Stack.Screen name="SecondSoundCheck" component={SecondSoundCheckScreen} />

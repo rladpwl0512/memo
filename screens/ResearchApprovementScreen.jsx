@@ -4,7 +4,7 @@ import GreenButton from "../components/GreenButton";
 
 function ResearchApprovementScreen({ navigation }) {
   const handleButtonClick = () => {
-    navigation.navigate("Login");
+    navigation.navigate("WifiGuide");
   };
 
   return (
