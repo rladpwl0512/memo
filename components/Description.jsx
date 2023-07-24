@@ -6,7 +6,7 @@ function Description({ image, titleText, contentText, handleButtonClick, buttonT
   return (
     <View style={[global.container, styles.container]}>
       {image}
-      <Text style={global.title}>{titleText}</Text>
+      <Text style={[global.title, styles.title]}>{titleText}</Text>
       <Text style={[global.content, styles.content]}>{contentText}</Text>
       <GreenButton text={buttonText} width="40%" onClick={handleButtonClick} />
     </View>
@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
   },
 
   content: {
+    textAlign: "center",
+  },
+
+  title: {
     textAlign: "center",
   },
 });
