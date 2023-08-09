@@ -12,11 +12,11 @@ import disableBack from "../utils/disableBack";
 
 const FirstExpScreen = ({ navigation }) => {
   const { user } = useContext(UserContext);
+  const emotions = ["기쁨", "놀람", "부끄러움", "불안", "슬픔", "화남", "무표정"];
 
   const [clickedButton, setClickedButton] = useState("");
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [emotions, setEmotions] = useState([]);
   const [status, setStatus] = useState("");
   const [readyToStart, setReadyToStart] = useState(false);
 
@@ -89,7 +89,6 @@ const FirstExpScreen = ({ navigation }) => {
   useEffect(() => {
     countRef.current = 0;
     setClickedButton("");
-    setEmotions(shuffleArray(["무표정", "기쁨", "놀람", "부끄러움", "불안", "슬픔", "화남"]));
   }, [currentQuestionIndex]);
 
   useEffect(() => {
